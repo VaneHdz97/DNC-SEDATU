@@ -50,9 +50,9 @@ const PenIcon = (p) => <Icon {...p}><path d="M12 20h9" /><path d="M16.5 3.5a2.1 
 
 /* ============================================================
    DATOS DE PRUEBA (MOCK) — En producción, DGTIC los conectaría a:
-   - Padrón de personal (nómina) para autenticación y datos de perfil
-   - Histórico de capacitación 2026 (sistema actual o RUSP)
-   - Catálogo de cursos 2027 administrable desde backend
+   - Padrón de personal (planrilla) para autenticación y datos de perfil
+   - Histórico de capacitación 2026 (base con corte a octubre)
+   - Catálogo de cursos 2027 administrable desde un perfil de administrador
    ============================================================ */
 
 const EMPLEADOS = [
@@ -63,25 +63,25 @@ const EMPLEADOS = [
 
 const CURSOS_2026 = {
   10234: [
-    { nombre: "Ética Pública y Prevención de Conflictos de Interés", horas: 10, periodo: "Marzo 2026" },
-    { nombre: "Ordenamiento Territorial: Marco Normativo", horas: 20, periodo: "Julio 2026" },
+    { nombre: "Obligatorio 1", horas: 10, periodo: "Marzo 2026" },
+    { nombre: "Obligatorio 2", horas: 20, periodo: "Julio 2026" },
   ],
   10567: [{ nombre: "Igualdad de Género y No Discriminación", horas: 8, periodo: "Febrero 2026" }],
   10891: [],
 };
 
 const OBLIGATORIOS_2027 = [
-  { nombre: "Código de Ética y Reglas de Integridad 2027", horas: 8, modalidad: "En línea" },
-  { nombre: "Protección de Datos Personales en la APF", horas: 8, modalidad: "En línea" },
+  { nombre: "Obligatorio 1", horas: 8 },
+  { nombre: "Obligatorio 2", horas: 10 },
 ];
 
 const CATALOGO_2027 = [
-  { id: 1, nombre: "Ordenamiento Territorial y Uso de Suelo", horas: 20, modalidad: "Presencial" },
-  { id: 2, nombre: "Redacción de Documentos Oficiales", horas: 15, modalidad: "En línea" },
-  { id: 3, nombre: "Excel Intermedio para la Administración Pública", horas: 20, modalidad: "En línea" },
-  { id: 4, nombre: "Liderazgo y Trabajo en Equipo", horas: 10, modalidad: "Presencial" },
+  { id: 1, nombre: "Ordenamiento Territorial y Uso de Suelo", horas: 20, modalidad: "Virtual" },
+  { id: 2, nombre: "Redacción de Documentos Oficiales", horas: 15, modalidad: "Virtual" },
+  { id: 3, nombre: "Excel Intermedio", horas: 20, modalidad: "Virtual" },
+  { id: 4, nombre: "Liderazgo y Trabajo en Equipo", horas: 10, modalidad: "Virtual" },
   { id: 5, nombre: "Igualdad de Género y No Discriminación", horas: 8, modalidad: "En línea" },
-  { id: 6, nombre: "Marco Jurídico de la Administración Pública Federal", horas: 24, modalidad: "En línea" },
+  { id: 6, nombre: "Marco Jurídico de la Administración Pública Federal", horas: 24, modalidad: "Presencial" },
   { id: 7, nombre: "Atención Ciudadana y Servicio Público", horas: 16, modalidad: "Presencial" },
   { id: 8, nombre: "Gestión de Proyectos de Vivienda", horas: 30, modalidad: "Presencial" },
   { id: 9, nombre: "Ética Pública y Prevención de Conflictos de Interés", horas: 10, modalidad: "En línea" },
