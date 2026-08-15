@@ -12,6 +12,7 @@
     --stone-400:#a39c8c; --stone-500:#79715f; --stone-600:#5b5546; --stone-700:#453f34;
     --stone-800:#2b2620; --emerald-50:#eafaf1; --emerald-100:#d4f3e2; --emerald-600:#1f7a4d; --emerald-700:#166339;
     --red-50:#fdecec; --red-200:#f3bcbc; --red-700:#a3231d;
+    --purple-50:#f5f3ff; --purple-200:#ddd6fe; --purple-800:#5b21b6;
   }
   *{box-sizing:border-box;}
   html,body{height:100%;margin:0;}
@@ -23,12 +24,12 @@
   #root{min-height:100%; display:flex; flex-direction:column;}
   .header{background:var(--teal-900); color:#e7f3f1;}
   .header-stripe{height:6px; width:100%; background:linear-gradient(to right, var(--amber-600), var(--teal-700), var(--amber-600));}
-  .header-inner{max-width:860px; margin:0 auto; padding:16px 24px; display:flex; align-items:center; justify-content:space-between;}
+  .header-inner{max-width:900px; margin:0 auto; padding:16px 24px; display:flex; align-items:center; justify-content:space-between;}
   .header-eyebrow{font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:#9fc9c3;}
   .header-title{font-weight:600; font-size:18px; letter-spacing:-.01em; line-height:1.2;}
   .btn-ghost{font-size:12px; padding:6px 12px; border-radius:6px; border:1px solid var(--teal-700); background:transparent; color:#e7f3f1; cursor:pointer;}
   .btn-ghost:hover{background:var(--teal-800);}
-  .container{max-width:860px; width:100%; margin:0 auto; padding:32px 24px; flex:1;}
+  .container{max-width:900px; width:100%; margin:0 auto; padding:32px 24px; flex:1;}
   .footer{text-align:center; font-size:12px; color:var(--stone-400); padding:24px 0;}
   .stepper{display:flex; align-items:center; width:100%; margin-bottom:8px;}
   .step{display:flex; align-items:center; gap:8px; flex:1;}
@@ -48,10 +49,10 @@
   .card-subtitle{font-size:13px; color:var(--stone-500); margin:0 0 16px 0;}
   .field-label{font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--stone-500); margin-bottom:4px;}
   .field-value{font-size:14px; color:var(--stone-800);}
-  input[type=text],input[type=password],select{
+  input[type=text],input[type=password],input[type=number],select,textarea{
     width:100%; border:1px solid var(--stone-300); border-radius:6px; padding:9px 12px; font-size:14px; font-family:inherit; color:var(--stone-800); background:#fff;
   }
-  input:focus,select:focus{outline:2px solid var(--teal-700); outline-offset:1px; border-color:var(--teal-700);}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--teal-700); outline-offset:1px; border-color:var(--teal-700);}
   .icon-input{position:relative;}
   .icon-input input{padding-left:34px;}
   .icon-input .ic{position:absolute; left:10px; top:50%; transform:translateY(-50%); color:var(--stone-400);}
@@ -67,6 +68,7 @@
   .alert-error{color:var(--red-700); background:var(--red-50); border:1px solid var(--red-200);}
   .alert-warn{color:var(--amber-700); background:var(--amber-50); border:1px solid var(--amber-200);}
   .alert-ok{align-items:center; color:var(--emerald-700); background:var(--emerald-50); border:1px solid var(--emerald-100);}
+  .alert-purple{color:var(--purple-800); background:var(--purple-50); border:1px solid var(--purple-200);}
   .grid2{display:grid; grid-template-columns:1fr; gap:16px;}
   @media (min-width:600px){.grid2{grid-template-columns:1fr 1fr;}}
   .col-span-2{grid-column:1 / -1;}
@@ -86,6 +88,7 @@
   .badge{font-size:11px; font-weight:600; padding:4px 10px; border-radius:999px;}
   .badge-ok{background:var(--emerald-100); color:var(--emerald-700);}
   .badge-neutral{background:var(--stone-100); color:var(--stone-600);}
+  .badge-art34{background:var(--purple-50); color:var(--purple-800); border:1px solid var(--purple-200);}
   .oblig-box{border:1px solid var(--amber-200); background:var(--amber-50); border-radius:6px; padding:12px 16px;}
   .oblig-tag{font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--amber-700); font-weight:600; margin-bottom:4px;}
   .norm-box{font-size:12px; color:var(--stone-500); background:var(--stone-50); border:1px dashed var(--stone-300); border-radius:6px; padding:12px 16px; line-height:1.6;}
@@ -115,9 +118,6 @@
 (function () {
 "use strict";
 
-/* ============================================================
-   ICONOS SVG
-   ============================================================ */
 function icon(paths) {
   return '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + paths + '</svg>';
 }
@@ -134,16 +134,17 @@ var ICONS = {
   shield: icon('<path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/>'),
   chevron: icon('<path d="M9 6l6 6-6 6"/>'),
   printer: icon('<path d="M6 9V3h12v6"/><rect x="4" y="9" width="16" height="8" rx="2"/><path d="M6 17h12v4H6z"/>'),
-  pen: icon('<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>')
+  pen: icon('<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>'),
+  building: icon('<rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="9" y1="22" x2="9" y2="22.01"/><line x1="15" y1="22" x2="15" y2="22.01"/><line x1="12" y1="6" x2="12" y2="6.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="12" y1="18" x2="12" y2="18.01"/>')
 };
 
 /* ============================================================
-   DATOS BASE (CATÁLOGO MULTI-PLATAFORMA Y PLANTILLA)
+   PADRÓN DE EMPLEADOS CON ROLES Y CONDICIÓN ART. 34 / DG
    ============================================================ */
 var EMPLEADOS = [
-  { curp: "GARM850101HDFRZL05", numEmpleado: "10234", nombre: "Maria Elena Garcia Ruiz", puesto: "Jefa de Departamento", nivel: "OA1", area: "Direccion General de Ordenamiento Territorial y Agrario" },
-  { curp: "LOHJ900312HDFPRN08", numEmpleado: "10567", nombre: "Juan Carlos Lopez Hernandez", puesto: "Subdirector de Area", nivel: "NA1", area: "Direccion General de Desarrollo Urbano, Suelo y Vivienda" },
-  { curp: "RAMS930725MDFYRN02", numEmpleado: "10891", nombre: "Sofia Ramirez Mendoza", puesto: "Enlace de Alto Nivel de Responsabilidad", nivel: "OB1", area: "Direccion General de Administracion y Finanzas" }
+  { curp: "GARM850101HDFRZL05", numEmpleado: "10234", nombre: "Maria Elena Garcia Ruiz", puesto: "Jefa de Departamento", nivel: "OA1", area: "Dirección General de Ordenamiento Territorial y Agrario", esArt34: false, esDirectorGeneral: false },
+  { curp: "LOHJ900312HDFPRN08", numEmpleado: "10567", nombre: "Juan Carlos Lopez Hernandez", puesto: "Subdirector de Area", nivel: "NA1", area: "Dirección General de Desarrollo Urbano, Suelo y Vivienda", esArt34: true, esDirectorGeneral: false },
+  { curp: "RAMS930725MDFYRN02", numEmpleado: "10891", nombre: "Sofia Ramirez Mendoza", puesto: "Directora General", nivel: "KA1", area: "Dirección General de Capital Humano y Desarrollo Organizacional", esArt34: false, esDirectorGeneral: true }
 ];
 
 var CURSOS_2026 = {
@@ -156,89 +157,45 @@ var CURSOS_2026 = {
 };
 
 var OBLIGATORIOS_2027 = [
-  { nombre: "Obligatorio 1", horas: 8, modalidad: "En linea", plataforma: "Escuela de Buen Gobierno" },
-  { nombre: "Formación en Igualdad Sustantiva y derechos de las mujeres", horas: 10, modalidad: "En linea", plataforma: "Escuela de Buen Gobierno" }
+  { nombre: "Ética e Integridad Pública para un Buen Gobierno", horas: 10, modalidad: "A Distancia", institucion: "Escuela de Buen Gobierno" },
+  { nombre: "Formación en Igualdad Sustantiva y Derechos de las Mujeres", horas: 10, modalidad: "A Distancia", institucion: "Escuela de Buen Gobierno" }
 ];
 
+/* ============================================================
+   CATÁLOGO COMPLETO (EXTRAÍDO DEL ARCHIVO CSV)
+   ============================================================ */
 var CATALOGO_2027 = [
-  {
-    id: 1,
-    categoria: "Habilidades Blandas",
-    nombre: "Trabajo en Equipo y Colaboracion",
-    plataforma: "PROCADIST",
-    necesidad: "Fomentar la coordinacion interinstitucional y resolucion constructiva de acuerdos grupales.",
-    horas: 16,
-    modalidad: "En linea"
-  },
-  {
-    id: 2,
-    categoria: "Habilidades Blandas",
-    nombre: "Trabajo en Equipo y Colaboracion",
-    plataforma: "Capacitate para el Empleo (Fundacion Carlos Slim)",
-    necesidad: "Fortalecer habilidades operativas, distribucion eficiente de tareas y liderazgo sinergico.",
-    horas: 20,
-    modalidad: "En linea"
-  },
-  {
-    id: 3,
-    categoria: "Habilidades Blandas",
-    nombre: "Comunicacion Asertiva y Negociacion",
-    plataforma: "PROCADIST",
-    necesidad: "Mejorar la gestion de acuerdos y comunicacion clara con representaciones agrarias y comites.",
-    horas: 15,
-    modalidad: "En linea"
-  },
-  {
-    id: 4,
-    categoria: "Tecnologia y Productividad",
-    nombre: "Analisis de Datos con Microsoft Excel",
-    plataforma: "Capacitate para el Empleo (Fundacion Carlos Slim)",
-    necesidad: "Depuracion masiva de bases registrales y cruces automaticos de beneficiarios.",
-    horas: 25,
-    modalidad: "En linea"
-  },
-  {
-    id: 5,
-    categoria: "Tecnologia y Productividad",
-    nombre: "Analisis de Datos con Microsoft Excel",
-    plataforma: "MexicoX",
-    necesidad: "Gestion cuantitativa de indicadores de seguimiento territorial y matrices analiticas.",
-    horas: 30,
-    modalidad: "En linea"
-  },
-  {
-    id: 6,
-    categoria: "Normatividad y Gestion Publica",
-    nombre: "Marco Juridico del Ordenamiento Territorial",
-    plataforma: "Campus SEDATU / INDESOL",
-    necesidad: "Actualizacion de criterios normativos para la regularizacion de asentamientos humanos.",
-    horas: 24,
-    modalidad: "Mixta"
-  },
-  {
-    id: 7,
-    categoria: "Normatividad y Gestion Publica",
-    nombre: "Redaccion de Documentos Oficiales y Archivo",
-    plataforma: "PROCADIST",
-    necesidad: "Estandarizar notas informativas, oficios de respuesta y dictamenes tecnicos sectoriales.",
-    horas: 20,
-    modalidad: "En linea"
-  },
-  {
-    id: 8,
-    categoria: "Derechos Humanos y Genero",
-    nombre: "Inclusion, No Discriminacion e Igualdad Sustantiva",
-    plataforma: "Campus CONAPRED",
-    necesidad: "Garantizar la transversalizacion de perspectiva de derechos y no discriminacion en proyectos urbanos.",
-    horas: 20,
-    modalidad: "En linea"
-  }
+  { id: 1, nombre: "¿Cómo entender el presupuesto? El gasto público a través de los datos", tipo: "Curso", horas: 60, finalidad: "Fortalecimiento", institucion: "@PRENDE.MX de la SEP", necesidad: "Comprender la estructura del presupuesto de egresos de la federación y el ciclo del gasto público mediante el uso de herramientas de análisis de datos para fortalecer la rendición de cuentas.", categoria: "Unidad de Administración y Finanzas", modalidad: "A Distancia" },
+  { id: 2, nombre: "Gestión Documental en la Administración Pública Federal", tipo: "Curso", horas: 10, finalidad: "Sensibilización", institucion: "Escuela de Buen Gobierno", necesidad: "Concientizar al personal sobre las obligaciones en materia de gestión documental y responsabilidades administrativas para prevenir actos de corrupción.", categoria: "Transversales", modalidad: "A Distancia" },
+  { id: 3, nombre: "Presupuesto Basado en Resultados", tipo: "Diplomado", horas: 120, finalidad: "Actualización", institucion: "SHCP", necesidad: "Consolidar la gestión para resultados mediante la metodología de marco lógico y construcción de indicadores para optimizar el gasto público.", categoria: "Unidad de Administración y Finanzas", modalidad: "A Distancia" },
+  { id: 4, nombre: "Accountability y Gestión del Desempeño", tipo: "Curso", horas: 20, finalidad: "Fortalecimiento", institucion: "Coursera Inc.", necesidad: "Desarrollar la filosofía de accountability y gestión del desempeño mediante herramientas de comunicación y retroalimentación.", categoria: "Habilidades Blandas", modalidad: "A Distancia" },
+  { id: 6, nombre: "Atlas Nacional de Riesgos: Inversión para la Reducción del Riesgo de Desastres", tipo: "Curso", horas: 5, finalidad: "Fortalecimiento", institucion: "CENAPRED", necesidad: "Conocer las capacidades del Atlas Nacional de Riesgos identificando proyectos de inversión pública territorial.", categoria: "Especializada", modalidad: "A Distancia" },
+  { id: 7, nombre: "Administración de Recursos Humanos I", tipo: "Curso", horas: 40, finalidad: "Fortalecimiento", institucion: "ICAT CDMX", necesidad: "Conocer los elementos fundamentales de la capacitación y obligaciones legales ante la STPS para garantizar el cumplimiento normativo institucional.", categoria: "Unidad de Administración y Finanzas", modalidad: "A Distancia" },
+  { id: 8, nombre: "Administración de Recursos Humanos II", tipo: "Curso", horas: 40, finalidad: "Fortalecimiento", institucion: "ICAT CDMX", necesidad: "Implementar metodologías para la detección de necesidades de capacitación (DNC) y planes de vida y carrera.", categoria: "Unidad de Administración y Finanzas", modalidad: "A Distancia" },
+  { id: 10, nombre: "Administración para No Administradores", tipo: "Curso", horas: 20, finalidad: "Fortalecimiento", institucion: "ICAT CDMX", necesidad: "Identificar conceptos claves de la administración para optimizar la coordinación de recursos y metas institucionales.", categoria: "Unidad de Administración y Finanzas", modalidad: "A Distancia" },
+  { id: 13, nombre: "Aspectos Generales de Derechos Humanos", tipo: "Curso", horas: 40, finalidad: "Inducción", institucion: "CNDH", necesidad: "Comprender el origen y naturaleza jurídica de los Derechos Humanos para garantizar el respeto a la dignidad humana y atención a grupos vulnerables.", categoria: "Transversales", modalidad: "A Distancia" },
+  { id: 19, nombre: "Ciudadanía Digital y Comunicación Política Electoral", tipo: "Curso", horas: 20, finalidad: "Inducción", institucion: "TEPJF", necesidad: "Proporcionar conocimientos propedéuticos sobre comunicación política digital y libertad de expresión.", categoria: "Atención Directa a la Población", modalidad: "A Distancia" },
+  { id: 28, nombre: "¡Súmate al Protocolo!", tipo: "Curso", horas: 3, finalidad: "Inducción", institucion: "Secretaría de las Mujeres", necesidad: "Comprender las disposiciones del protocolo de atención al hostigamiento y acoso sexual fomentando cero tolerancia en la APF.", categoria: "Transversales", modalidad: "A Distancia" },
+  { id: 32, nombre: "Derechos Humanos Medio Ambiente y Sustentabilidad", tipo: "Curso", horas: 30, finalidad: "Inducción", institucion: "CNDH", necesidad: "Mejorar la calidad de vida de la comunidad mediante medidas de preservación ambiental y desarrollo sostenible.", categoria: "Habilidades Blandas", modalidad: "A Distancia" },
+  { id: 34, nombre: "Derechos Humanos de los Pueblos y Comunidades Indígenas", tipo: "Curso", horas: 30, finalidad: "Inducción", institucion: "CNDH", necesidad: "Reconocer y respetar la identidad y cosmovisión de pueblos indígenas para garantizar el pleno goce de sus derechos.", categoria: "Transversales", modalidad: "A Distancia" },
+  { id: 37, nombre: "Derechos Humanos y Género", tipo: "Curso", horas: 40, finalidad: "Inducción", institucion: "CNDH", necesidad: "Analizar la interrelación entre Derechos Humanos y género promoviendo la equidad en el servicio público.", categoria: "Transversales", modalidad: "A Distancia" },
+  { id: 39, nombre: "Derechos Humanos en el Servicio Público", tipo: "Curso", horas: 12, finalidad: "Inducción", institucion: "CNDH", necesidad: "Reconocer los componentes de legalidad, ética y sistemas de protección de los Derechos Humanos en el servicio público.", categoria: "Transversales", modalidad: "A Distancia" },
+  { id: 44, nombre: "Enfoque de Derechos Humanos en el Servicio Público", tipo: "Curso", horas: 15, finalidad: "Inducción", institucion: "Escuela de Buen Gobierno", necesidad: "Aplicar enfoque de Derechos Humanos en las funciones institucionales para cumplir obligaciones constitucionales.", categoria: "Transversales", modalidad: "A Distancia" },
+  { id: 50, nombre: "Elaboración del Cuadro General de Clasificación Archivística y Catálogo 2026", tipo: "Curso", horas: 8, finalidad: "Inducción", institucion: "AGN", necesidad: "Desarrollar capacidades técnicas para la organización de archivos conforme a la Ley General de Archivos.", categoria: "Transversales", modalidad: "A Distancia" },
+  { id: 61, nombre: "Curso Introductorio en Materia de Igualdad Sustantiva", tipo: "Curso", horas: 10, finalidad: "Inducción", institucion: "SEDATU", necesidad: "Promover lenguaje incluyente y prevención del hostigamiento sexual en entornos laborales de SEDATU.", categoria: "Transversales", modalidad: "A Distancia" },
+  { id: 80, nombre: "Introducción a la Ciberseguridad", tipo: "Curso", horas: 6, finalidad: "Inducción", institucion: "Escuela de Buen Gobierno", necesidad: "Identificar prácticas de seguridad digital y prevención de riesgos para proteger la información institucional.", categoria: "Habilidades Digitales", modalidad: "A Distancia" },
+  { id: 99, nombre: "Evaluación del Desempeño del Personal Operativo", tipo: "Curso", horas: 10, finalidad: "Inducción", institucion: "Secretaría de Economía", necesidad: "Comprender el proceso y herramientas de evaluación de desempeño para planear y controlar metas.", categoria: "Unidad de Administración y Finanzas", modalidad: "A Distancia" },
+  { id: 102, nombre: "Formación en Materia de Conciliación", tipo: "Curso", horas: 28, finalidad: "Inducción", institucion: "PROCADIST", necesidad: "Comprender los alcances de la reforma laboral en conciliación y resolución de controversias.", categoria: "Unidad de Administración y Finanzas", modalidad: "A Distancia" },
+  { id: 104, nombre: "Introducción a la Administración Pública Federal", tipo: "Curso", horas: 8, finalidad: "Inducción", institucion: "Escuela de Buen Gobierno", necesidad: "Identificar conceptos fundamentales, estructura y normativa básica de la Administración Pública Federal.", categoria: "Transversales", modalidad: "A Distancia" },
+  { id: 122, nombre: "Introducción al Órgano Transparencia para el Pueblo", tipo: "Curso", horas: 3, finalidad: "Inducción", institucion: "Transparencia para el Pueblo", necesidad: "Reconocer las reformas y mecanismos en transparencia, acceso a la información y protección de datos.", categoria: "Transversales", modalidad: "A Distancia" },
+  { id: 128, nombre: "Amenazas Digitales y Seguridad de la Información", tipo: "Curso", horas: 15, finalidad: "Inducción", institucion: "Escuela de Buen Gobierno", necesidad: "Aprender a aplicar medidas preventivas para la protección de datos e información institucional.", categoria: "Habilidades Digitales", modalidad: "A Distancia" },
+  { id: 129, nombre: "Cultura de Ciberseguridad para Servidores Públicos", tipo: "Curso", horas: 10, finalidad: "Inducción", institucion: "Escuela de Buen Gobierno", necesidad: "Prevenir incidentes digitales mediante la comprensión de principios de seguridad en el manejo de expedientes.", categoria: "Habilidades Digitales", modalidad: "A Distancia" }
 ];
 
 var HORAS_MINIMAS_REQUERIDAS = 40;
 
 /* ============================================================
-   ESTADO
+   ESTADO GLOBAL
    ============================================================ */
 var state = {
   page: "login",
@@ -247,13 +204,21 @@ var state = {
   loginError: "",
   user: null,
 
+  // Optativo 1
   c1_cat: "",
   c1_nom: "",
   c1_id: "",
 
+  // Optativo 2
   c2_cat: "",
   c2_nom: "",
   c2_id: "",
+
+  // DNC Especializada para Directores Generales
+  dncArea_nombreCurso: "",
+  dncArea_tematica: "",
+  dncArea_participantes: "",
+  dncArea_justificacion: "",
 
   jefeInmediato: "",
   record: null
@@ -270,9 +235,16 @@ function getCursosTomados2026(user) {
 }
 
 function getDisponibles2027(user) {
+  if (!user) return [];
   var tomados = {};
   getCursosTomados2026(user).forEach(function (c) { tomados[c.nombre] = true; });
-  return CATALOGO_2027.filter(function (c) { return !tomados[c.nombre]; });
+
+  return CATALOGO_2027.filter(function (c) {
+    if (tomados[c.nombre]) return false;
+    // Si es personal Art. 34 sólo puede ver Inducción
+    if (user.esArt34 && c.finalidad !== "Inducción") return false;
+    return true;
+  });
 }
 
 function getCategoriasDisponibles(disponibles) {
@@ -298,7 +270,7 @@ function getPlataformasPorCurso(disponibles, cat, nombre) {
 }
 
 /* ============================================================
-   RENDER: HEADER & STEPPER
+   RENDERS
    ============================================================ */
 function renderHeader() {
   var logged = !!state.user;
@@ -307,8 +279,8 @@ function renderHeader() {
       '<div class="header-stripe"></div>' +
       '<div class="header-inner">' +
         '<div>' +
-          '<div class="header-eyebrow">SEDATU &middot; DNC Institucional</div>' +
-          '<div class="header-title">Sistema de Deteccion de Necesidades de Capacitacion 2027</div>' +
+          '<div class="header-eyebrow">SEDATU &middot; DGCHDO &middot; PAC 2027</div>' +
+          '<div class="header-title">Sistema de Detección de Necesidades de Capacitación</div>' +
         '</div>' +
         (logged ? '<button class="btn-ghost" data-action="logout">' + ICONS.logout + ' Salir</button>' : '') +
       '</div>' +
@@ -317,7 +289,7 @@ function renderHeader() {
 }
 
 function renderStepper(current) {
-  var steps = ["Acceso", "Perfil", "Solicitud", "Confirmacion"];
+  var steps = ["Acceso", "Perfil", "Solicitud", "Confirmación"];
   var html = '<div class="stepper no-print">';
   steps.forEach(function (label, i) {
     var idx = i + 1;
@@ -334,19 +306,17 @@ function renderStepper(current) {
   return html;
 }
 
-/* ============================================================
-   RENDER: PAGINAS
-   ============================================================ */
 function renderLogin() {
   var accountsHtml = EMPLEADOS.map(function (e) {
+    var rolTag = e.esArt34 ? " [Art. 34 LSPC]" : e.esDirectorGeneral ? " [Directora General]" : "";
     return '<li><button type="button" class="link-btn" data-action="fill-account" data-curp="' + esc(e.curp) + '" data-num="' + esc(e.numEmpleado) + '">' +
-      esc(e.curp) + ' &mdash; ' + esc(e.numEmpleado) + ' (' + esc(e.nombre.split(" ")[0]) + ')</button></li>';
+      esc(e.curp) + ' &mdash; ' + esc(e.numEmpleado) + ' (' + esc(e.nombre.split(" ")[0]) + rolTag + ')</button></li>';
   }).join("");
 
   return (
     '<div class="card" style="max-width:440px;margin:24px auto 0;">' +
       '<div class="card-title">' + ICONS.login + ' Acceso al sistema</div>' +
-      '<p class="card-subtitle">Ingresa con tu CURP y tu numero de empleado como contrasena.</p>' +
+      '<p class="card-subtitle">Ingresa con tu CURP y tu número de empleado como contraseña.</p>' +
       '<form id="login-form">' +
         '<div class="mb-4">' +
           '<div class="field-label">CURP</div>' +
@@ -356,17 +326,17 @@ function renderLogin() {
           '</div>' +
         '</div>' +
         '<div class="mb-4">' +
-          '<div class="field-label">Numero de empleado (contrasena)</div>' +
+          '<div class="field-label">Número de empleado (contraseña)</div>' +
           '<div class="icon-input">' +
             '<span class="ic">' + ICONS.key + '</span>' +
             '<input type="password" id="numempleado-input" placeholder="10234" value="' + esc(state.numEmpleado) + '" />' +
           '</div>' +
         '</div>' +
         (state.loginError ? '<div class="alert alert-error mb-4">' + ICONS.alert + '<span>' + esc(state.loginError) + '</span></div>' : '') +
-        '<button type="submit" class="btn btn-primary">Iniciar sesion</button>' +
+        '<button type="submit" class="btn btn-primary">Iniciar sesión</button>' +
       '</form>' +
       '<div class="test-accounts">' +
-        '<div class="test-accounts-title">Cuentas de prueba (maqueta institucional):</div>' +
+        '<div class="test-accounts-title">Perfiles demostrativos configurados:</div>' +
         '<ul>' + accountsHtml + '</ul>' +
       '</div>' +
     '</div>'
@@ -378,7 +348,7 @@ function renderPerfil() {
   var cursos = getCursosTomados2026(user);
   var tablaHtml;
   if (cursos.length === 0) {
-    tablaHtml = '<div class="empty-box">No se registra capacitacion tomada durante 2026.</div>';
+    tablaHtml = '<div class="empty-box">No se registra capacitación tomada durante 2026.</div>';
   } else {
     tablaHtml = '<table><thead><tr><th>Curso tomado</th><th>Horas</th><th>Periodo</th></tr></thead><tbody>' +
       cursos.map(function (c) {
@@ -386,20 +356,29 @@ function renderPerfil() {
       }).join("") + '</tbody></table>';
   }
 
+  var condicionBadge = user.esArt34
+    ? '<span class="badge badge-art34">Nombramiento Art. 34 LSPC (Inducción)</span>'
+    : user.esDirectorGeneral
+    ? '<span class="badge badge-ok">Mando Superior (Facultad DNC de Área)</span>'
+    : '<span class="badge badge-neutral">Estructura Ocupacional Regular</span>';
+
   return (
     '<div class="card">' +
-      '<div class="card-title">' + ICONS.user + ' Perfil del Servidor Publico</div>' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;" class="mb-2">' +
+        '<div class="card-title" style="margin:0;">' + ICONS.user + ' Perfil del Servidor Público</div>' +
+        condicionBadge +
+      '</div>' +
       '<div class="grid2 mt-4">' +
         '<div><div class="field-label">Nombre</div><div class="field-value">' + esc(user.nombre) + '</div></div>' +
         '<div><div class="field-label">CURP</div><div class="field-value">' + esc(user.curp) + '</div></div>' +
-        '<div><div class="field-label">Tipo de puesto</div><div class="field-value">' + esc(user.puesto) + '</div></div>' +
-        '<div><div class="field-label">Nivel</div><div class="field-value">' + esc(user.nivel) + '</div></div>' +
-        '<div class="col-span-2"><div class="field-label">Area de adscripcion</div><div class="field-value">' + esc(user.area) + '</div></div>' +
+        '<div><div class="field-label">Puesto Institucional</div><div class="field-value">' + esc(user.puesto) + '</div></div>' +
+        '<div><div class="field-label">Nivel Tabular</div><div class="field-value">' + esc(user.nivel) + '</div></div>' +
+        '<div class="col-span-2"><div class="field-label">Unidad Administrativa / Área de Adscripción</div><div class="field-value">' + esc(user.area) + '</div></div>' +
       '</div>' +
     '</div>' +
     '<div class="card">' +
-      '<div class="card-title">' + ICONS.book + ' Historial de Capacitacion 2026</div>' +
-      '<p class="card-subtitle">Verifica los cursos acreditados en el ciclo inmediato anterior. Los temas tomados se excluyen automaticamente de las opciones 2027.</p>' +
+      '<div class="card-title">' + ICONS.book + ' Historial de Capacitación Ciclo 2026</div>' +
+      '<p class="card-subtitle">Cursos concluidos satisfactoriamente en el ejercicio previo (se excluyen de la oferta 2027 para evitar duplicidad formativa).</p>' +
       tablaHtml +
     '</div>' +
     '<button class="btn btn-primary mt-4" data-action="go-solicitud">Confirmar datos y continuar ' + ICONS.chevron + '</button>'
@@ -415,26 +394,27 @@ function renderCourseSelector(index, selectedCat, selectedNom, selectedId, other
 
   var selectedCourse = disponibles.filter(function (c) { return String(c.id) === String(selectedId); })[0];
 
-  var catOptions = '<option value="">-- Selecciona una Categoria --</option>' + categories.map(function (cat) {
+  var catOptions = '<option value="">-- Selecciona Categoría --</option>' + categories.map(function (cat) {
     return '<option value="' + esc(cat) + '" ' + (cat === selectedCat ? 'selected' : '') + '>' + esc(cat) + '</option>';
   }).join("");
 
-  var nomOptions = '<option value="">-- Selecciona un Curso --</option>' + names.map(function (n) {
+  var nomOptions = '<option value="">-- Selecciona el Curso --</option>' + names.map(function (n) {
     return '<option value="' + esc(n) + '" ' + (n === selectedNom ? 'selected' : '') + '>' + esc(n) + '</option>';
   }).join("");
 
-  var platOptions = '<option value="">-- Selecciona Plataforma / Modalidad --</option>' + platforms.map(function (p) {
-    return '<option value="' + p.id + '" ' + (String(p.id) === String(selectedId) ? 'selected' : '') + '>' + esc(p.plataforma) + ' (' + p.horas + ' h)</option>';
+  var platOptions = '<option value="">-- Selecciona Plataforma / Instancia --</option>' + platforms.map(function (p) {
+    return '<option value="' + p.id + '" ' + (String(p.id) === String(selectedId) ? 'selected' : '') + '>' + esc(p.institucion) + ' (' + p.horas + ' h &bull; ' + esc(p.finalidad) + ')</option>';
   }).join("");
 
   var detailBox = '';
   if (selectedCourse) {
-    detailBox = 
+    detailBox =
       '<div class="info-tag-box">' +
-        '<div><strong>Necesidad institucional que atiende:</strong></div>' +
+        '<div><strong>Necesidad de capacitación que atiende:</strong></div>' +
         '<div style="color:var(--stone-600);margin-top:2px;">' + esc(selectedCourse.necesidad) + '</div>' +
-        '<div style="margin-top:6px;display:flex;gap:12px;font-size:12px;">' +
-          '<span><strong>Horas acreditadas:</strong> ' + selectedCourse.horas + ' h</span>' +
+        '<div style="margin-top:6px;display:flex;gap:16px;font-size:12px;">' +
+          '<span><strong>Horas:</strong> ' + selectedCourse.horas + ' h</span>' +
+          '<span><strong>Finalidad:</strong> ' + esc(selectedCourse.finalidad) + '</span>' +
           '<span><strong>Modalidad:</strong> ' + esc(selectedCourse.modalidad) + '</span>' +
         '</div>' +
       '</div>';
@@ -443,20 +423,20 @@ function renderCourseSelector(index, selectedCat, selectedNom, selectedId, other
   return (
     '<div class="course-selection-box">' +
       '<div class="course-selection-title">' +
-        '<span>Curso Optativo ' + index + '</span>' +
-        (selectedCourse ? '<span class="badge badge-ok">' + selectedCourse.horas + ' horas</span>' : '<span class="badge badge-neutral">Pendiente</span>') +
+        '<span>Curso Optativo ' + index + (index === 2 ? ' (Opcional si ya sumas 40 h)' : '') + '</span>' +
+        (selectedCourse ? '<span class="badge badge-ok">' + selectedCourse.horas + ' horas</span>' : '<span class="badge badge-neutral">No seleccionado</span>') +
       '</div>' +
       '<div class="grid2">' +
         '<div>' +
-          '<div class="field-label">1. Categoria</div>' +
+          '<div class="field-label">1. Categoría</div>' +
           '<select class="cat-select" data-slot="' + index + '">' + catOptions + '</select>' +
         '</div>' +
         '<div>' +
-          '<div class="field-label">2. Nombre del Curso</div>' +
+          '<div class="field-label">2. Curso</div>' +
           '<select class="nom-select" data-slot="' + index + '" ' + (!selectedCat ? 'disabled' : '') + '>' + nomOptions + '</select>' +
         '</div>' +
         '<div class="col-span-2">' +
-          '<div class="field-label">3. Plataforma de Imparticion</div>' +
+          '<div class="field-label">3. Plataforma / Institución Impartidora</div>' +
           '<select class="id-select" data-slot="' + index + '" ' + (!selectedNom ? 'disabled' : '') + '>' + platOptions + '</select>' +
         '</div>' +
       '</div>' +
@@ -479,92 +459,139 @@ function renderSolicitud() {
   var totalGeneral = totalOblig + totalOpt;
 
   var cumpleMinimo = totalGeneral >= HORAS_MINIMAS_REQUERIDAS;
-  var puedeEnviar = state.c1_id && state.c2_id && state.c1_id !== state.c2_id && cumpleMinimo;
+  var alMenosUnCurso = !!state.c1_id || !!state.c2_id;
+  var puedeEnviar = alMenosUnCurso && cumpleMinimo;
 
   var obligHtml = OBLIGATORIOS_2027.map(function (c) {
-    return '<div class="oblig-box"><div class="oblig-tag">Obligatorio</div><div class="field-value">' + esc(c.nombre) +
-      '</div><div style="font-size:12px;color:var(--stone-500);margin-top:4px;">' + c.horas + ' h &middot; ' + esc(c.modalidad) + ' (' + esc(c.plataforma) + ')</div></div>';
+    return '<div class="oblig-box"><div class="oblig-tag">Obligatorio Institucional</div><div class="field-value">' + esc(c.nombre) +
+      '</div><div style="font-size:12px;color:var(--stone-500);margin-top:4px;">' + c.horas + ' h &middot; ' + esc(c.institucion) + ' (' + esc(c.modalidad) + ')</div></div>';
   }).join("");
+
+  var bannerArt34 = "";
+  if (user.esArt34) {
+    bannerArt34 =
+      '<div class="alert alert-purple mb-4">' +
+        ICONS.info +
+        '<span><strong>Personal nombrado por Art. 34 LSPC:</strong> Por disposición normativa de la Dirección General de Capital Humano y Desarrollo Organizacional, el catálogo ha sido filtrado exclusivamente con cursos con finalidad de <strong>Inducción</strong>.</span>' +
+      '</div>';
+  }
+
+  var dncEspecializadaHtml = "";
+  if (user.esDirectorGeneral) {
+    dncEspecializadaHtml =
+      '<div class="card" style="border-left:4px solid var(--teal-800);">' +
+        '<div class="card-title">' + ICONS.building + ' DNC Especializada de Área (Facultad de Dirección General)</div>' +
+        '<p class="card-subtitle">Como titular de Unidad Administrativa, puedes registrar un requerimiento grupal prioritario para la capacitación técnica de tu personal adscrito.</p>' +
+        '<div class="grid2">' +
+          '<div>' +
+            '<div class="field-label">Nombre del Curso Especializado Solicitado</div>' +
+            '<input type="text" id="dncArea-nombre" placeholder="Ej. Sistemas de Información Geográfica aplicados al Suelo Urbano" value="' + esc(state.dncArea_nombreCurso) + '" />' +
+          '</div>' +
+          '<div>' +
+            '<div class="field-label">Población Objetivo / N° de Servidores Estimados</div>' +
+            '<input type="number" id="dncArea-participantes" placeholder="Ej. 15 servidores públicos de enlace y mandos" value="' + esc(state.dncArea_participantes) + '" />' +
+          '</div>' +
+          '<div class="col-span-2">' +
+            '<div class="field-label">Justificación Técnica y Vinculación con los Objetivos del Área</div>' +
+            '<textarea id="dncArea-justificacion" rows="3" placeholder="Describe la necesidad operativa específica que resolverá esta capacitación grupal...">' + esc(state.dncArea_justificacion) + '</textarea>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
 
   var warnHtml = "";
   if (!cumpleMinimo) {
     var faltantes = HORAS_MINIMAS_REQUERIDAS - totalGeneral;
-    warnHtml = '<div class="alert alert-warn mt-4">' + ICONS.alert + '<span>El programa requiere un <strong>minimo de ' + HORAS_MINIMAS_REQUERIDAS + ' horas</strong> (obligatorios + optativos). Te faltan ' + faltantes + ' horas por cubrir.</span></div>';
+    warnHtml = '<div class="alert alert-warn mt-4">' + ICONS.alert + '<span>El programa requiere un <strong>mínimo de ' + HORAS_MINIMAS_REQUERIDAS + ' horas</strong> acumuladas. Te faltan ' + faltantes + ' h (puedes alcanzarlo con un solo curso de mayor carga o combinando dos).</span></div>';
   } else {
-    warnHtml = '<div class="alert alert-ok mt-4">' + ICONS.check + '<span>Cumples con el requerimiento de horas de capacitacion (' + totalGeneral + ' h totales).</span></div>';
+    warnHtml = '<div class="alert alert-ok mt-4">' + ICONS.check + '<span>Requerimiento de horas cubierto satisfactoriamente (' + totalGeneral + ' h totales acumuladas).</span></div>';
   }
 
   return (
+    bannerArt34 +
     '<div class="card">' +
-      '<div class="card-title">' + ICONS.shield + ' Cursos Obligatorios Institucionales 2027</div>' +
-      '<p class="card-subtitle">Precargados por lineamiento normativo (' + totalOblig + ' horas acumuladas).</p>' +
+      '<div class="card-title">' + ICONS.shield + ' Cursos Obligatorios Institucionales 2027 (Escuela de Buen Gobierno)</div>' +
+      '<p class="card-subtitle">Precargados conforme a los lineamientos de ética, integridad y género (' + totalOblig + ' horas acumuladas).</p>' +
       '<div class="grid2">' + obligHtml + '</div>' +
     '</div>' +
     '<div class="card">' +
-      '<div class="card-title">' + ICONS.book + ' Seleccion de Cursos Optativos</div>' +
-      '<p class="card-subtitle">Filtra por categoria y selecciona el curso y plataforma que responda a tus funciones. Ambos componentes (obligatorios y optativos) deben sumar al menos ' + HORAS_MINIMAS_REQUERIDAS + ' horas.</p>' +
+      '<div class="card-title">' + ICONS.book + ' Selección de Cursos Optativos Individuales</div>' +
+      '<p class="card-subtitle">Si seleccionas un curso que por sí solo cubra las ' + HORAS_MINIMAS_REQUERIDAS + ' horas totales, podrás avanzar sin registrar un segundo optativo.</p>' +
       renderCourseSelector(1, state.c1_cat, state.c1_nom, state.c1_id, state.c2_id, disponibles) +
       renderCourseSelector(2, state.c2_cat, state.c2_nom, state.c2_id, state.c1_id, disponibles) +
       warnHtml +
     '</div>' +
+    dncEspecializadaHtml +
     '<div class="card">' +
-      '<div class="card-title" style="font-size:14px;">' + ICONS.info + ' Normatividad y Lineamientos</div>' +
-      '<div class="norm-box">De conformidad con las disposiciones del Programa Anual de Capacitacion y Profesionalizacion de la SEDATU, el personal podra acreditar las horas establecidas mediante las plataformas oficiales autorizadas. Toda solicitud remitida queda sujeta a la validacion de la DGCHDO.</div>' +
+      '<div class="card-title" style="font-size:14px;">' + ICONS.info + ' Fundamento Normativo</div>' +
+      '<div class="norm-box">De conformidad con la Ley del Servicio Profesional de Carrera en la APF y las Disposiciones Generales en Materia de Recursos Humanos, la DNC individual y especializada integra el Programa Anual de Capacitación 2027 coordinado por la DGCHDO.</div>' +
     '</div>' +
     '<div class="total-bar mt-4 mb-4">' +
-      '<span>Total acumulado de capacitacion:</span>' +
-      '<strong style="color:var(--teal-900);font-size:16px;">' + totalGeneral + ' horas ' + (cumpleMinimo ? '(Cumple minimo)' : '') + '</strong>' +
+      '<span>Total acumulado de capacitación individual:</span>' +
+      '<strong style="color:var(--teal-900);font-size:16px;">' + totalGeneral + ' horas ' + (cumpleMinimo ? '(Cumple mínimo normativo)' : '') + '</strong>' +
     '</div>' +
-    '<button class="btn btn-primary" id="submit-btn" ' + (puedeEnviar ? "" : "disabled") + '>' + ICONS.clip + ' Registrar solicitud de capacitacion 2027</button>'
+    '<button class="btn btn-primary" id="submit-btn" ' + (puedeEnviar ? "" : "disabled") + '>' + ICONS.clip + ' Registrar Cédula DNC 2027</button>'
   );
 }
 
 function renderConfirmacion() {
   var record = state.record;
   var cursosRows = record.cursosObligatorios.map(function (c) {
-    return '<tr><td>' + esc(c.nombre) + '<div style="font-size:11px;color:var(--stone-500);">' + esc(c.plataforma) + '</div></td><td style="color:var(--amber-700);">Obligatorio</td><td>' + c.horas + ' h</td></tr>';
+    return '<tr><td>' + esc(c.nombre) + '<div style="font-size:11px;color:var(--stone-500);">' + esc(c.institucion) + '</div></td><td style="color:var(--amber-700);">Obligatorio</td><td>' + c.horas + ' h</td></tr>';
   }).join("") + record.cursosSolicitados.map(function (c) {
-    return '<tr><td>' + esc(c.nombre) + '<div style="font-size:11px;color:var(--stone-500);">' + esc(c.plataforma) + ' &bull; <em>' + esc(c.necesidad) + '</em></div></td><td style="color:var(--teal-700);">Optativo</td><td>' + c.horas + ' h</td></tr>';
+    return '<tr><td>' + esc(c.nombre) + '<div style="font-size:11px;color:var(--stone-500);">' + esc(c.institucion) + ' &bull; Finalidad: ' + esc(c.finalidad) + '<br><em>' + esc(c.necesidad) + '</em></div></td><td style="color:var(--teal-700);">Optativo</td><td>' + c.horas + ' h</td></tr>';
   }).join("");
 
+  var dncAreaHtml = "";
+  if (record.dncEspecializada && record.dncEspecializada.nombreCurso) {
+    dncAreaHtml =
+      '<div class="field-label mt-6">DNC Especializada para el Área (Solicitada por Dirección General)</div>' +
+      '<div style="background:var(--stone-50);border:1px solid var(--stone-200);border-radius:6px;padding:12px 16px;margin-top:4px;" class="mb-4">' +
+        '<div><strong>Curso:</strong> ' + esc(record.dncEspecializada.nombreCurso) + '</div>' +
+        '<div><strong>Participantes estimados:</strong> ' + esc(record.dncEspecializada.participantes) + '</div>' +
+        '<div style="margin-top:4px;"><strong>Justificación técnica:</strong> ' + esc(record.dncEspecializada.justificacion) + '</div>' +
+      '</div>';
+  }
+
   return (
-    '<div class="alert alert-ok mb-4 no-print">' + ICONS.check + '<span>Solicitud registrada exitosamente. Puedes imprimir o guardar el comprobante en PDF.</span></div>' +
+    '<div class="alert alert-ok mb-4 no-print">' + ICONS.check + '<span>Cédula de Detección de Necesidades de Capacitación registrada exitosamente.</span></div>' +
     '<div class="card">' +
       '<div class="doc-header">' +
-        '<div><div class="doc-eyebrow">SEDATU</div><div class="doc-title">Cedula Individual de Deteccion de Necesidades &mdash; Ciclo ' + esc(record.cicloCapacitacion) + '</div></div>' +
-        '<div class="doc-meta"><div>Folio: ' + esc(record.numEmpleado) + '-' + esc(record.fechaSolicitud) + '</div><div>Fecha: ' + esc(record.fechaSolicitud) + '</div></div>' +
+        '<div><div class="doc-eyebrow">SEDATU &middot; DGCHDO</div><div class="doc-title">Cédula Individual de Detección de Necesidades &mdash; Ejercicio 2027</div></div>' +
+        '<div class="doc-meta"><div>Folio: DNC-' + esc(record.numEmpleado) + '-2027</div><div>Fecha: ' + esc(record.fechaSolicitud) + '</div></div>' +
       '</div>' +
-      '<div class="field-label">Datos del Servidor Publico</div>' +
+      '<div class="field-label">Datos del Servidor Público</div>' +
       '<div class="grid2 mb-6 mt-2">' +
         '<div><span style="color:var(--stone-400);">Nombre: </span>' + esc(record.nombre) + '</div>' +
         '<div><span style="color:var(--stone-400);">CURP: </span>' + esc(record.curp) + '</div>' +
-        '<div><span style="color:var(--stone-400);">Numero de empleado: </span>' + esc(record.numEmpleado) + '</div>' +
-        '<div><span style="color:var(--stone-400);">Tipo de puesto: </span>' + esc(record.puesto) + '</div>' +
+        '<div><span style="color:var(--stone-400);">Número de empleado: </span>' + esc(record.numEmpleado) + '</div>' +
+        '<div><span style="color:var(--stone-400);">Puesto: </span>' + esc(record.puesto) + ' (' + (record.esArt34 ? 'Art. 34 LSPC' : 'Estructura') + ')</div>' +
         '<div><span style="color:var(--stone-400);">Nivel: </span>' + esc(record.nivel) + '</div>' +
-        '<div class="col-span-2"><span style="color:var(--stone-400);">Area de adscripcion: </span>' + esc(record.area) + '</div>' +
+        '<div class="col-span-2"><span style="color:var(--stone-400);">Área de adscripción: </span>' + esc(record.area) + '</div>' +
       '</div>' +
-      '<div class="field-label">Programa de Capacitacion Seleccionado</div>' +
-      '<table class="mb-2 mt-2"><thead><tr><th>Curso y Plataforma</th><th>Tipo</th><th>Horas</th></tr></thead><tbody>' + cursosRows + '</tbody>' +
-      '<tfoot><tr><td colspan="2" style="text-align:right;font-weight:600;color:var(--stone-600);">Horas Totales Programadas</td><td style="font-weight:700;color:var(--teal-900);">' + record.totalHorasSolicitud + ' h</td></tr></tfoot></table>' +
+      '<div class="field-label">Capacitación Individual Solicitada</div>' +
+      '<table class="mb-2 mt-2"><thead><tr><th>Curso / Instancia</th><th>Tipo</th><th>Horas</th></tr></thead><tbody>' + cursosRows + '</tbody>' +
+      '<tfoot><tr><td colspan="2" style="text-align:right;font-weight:600;color:var(--stone-600);">Horas Totales Acreditadas</td><td style="font-weight:700;color:var(--teal-900);">' + record.totalHorasSolicitud + ' h</td></tr></tfoot></table>' +
+      dncAreaHtml +
       '<div class="mb-8 mt-8 no-print">' +
-        '<div class="field-label">Nombre del superior jerarquico inmediato (para autorizacion)</div>' +
+        '<div class="field-label">Nombre del superior jerárquico inmediato (para visto bueno)</div>' +
         '<input type="text" id="jefe-input" placeholder="Nombre completo del titular que autoriza" style="max-width:380px;" value="' + esc(state.jefeInmediato) + '" />' +
       '</div>' +
-      '<div class="field-label mt-8">Firmas de Conformidad</div>' +
+      '<div class="field-label mt-8">Firmas de Conformidad y Validación</div>' +
       '<div class="signature-row">' +
-        '<div class="signature-box"><div class="signature-name">' + esc(record.nombre) + '</div><div class="signature-label">' + ICONS.pen + ' Nombre y firma del servidor publico solicitante</div></div>' +
-        '<div class="signature-box"><div class="signature-name">' + (esc(state.jefeInmediato) || '&nbsp;') + '</div><div class="signature-label">' + ICONS.pen + ' Nombre y firma del superior jerarquico (autoriza)</div></div>' +
+        '<div class="signature-box"><div class="signature-name">' + esc(record.nombre) + '</div><div class="signature-label">' + ICONS.pen + ' Firma del Servidor Público Solicitante</div></div>' +
+        '<div class="signature-box"><div class="signature-name">' + (esc(state.jefeInmediato) || '&nbsp;') + '</div><div class="signature-label">' + ICONS.pen + ' Firma del Superior Jerárquico Inmediato</div></div>' +
       '</div>' +
     '</div>' +
     '<div class="btn-row mt-4 no-print">' +
-      '<button type="button" class="btn btn-primary" id="btn-print">' + ICONS.printer + ' Imprimir comprobante</button>' +
-      '<button type="button" class="btn btn-secondary" data-action="logout">Finalizar y salir</button>' +
+      '<button type="button" class="btn btn-primary" id="btn-print">' + ICONS.printer + ' Imprimir comprobante oficial</button>' +
+      '<button type="button" class="btn btn-secondary" data-action="logout">Finalizar sesión</button>' +
     '</div>'
   );
 }
 
 /* ============================================================
-   RENDER PRINCIPAL Y CONTROLADORES
+   CONTROLADOR PRINCIPAL Y LISTENERS
    ============================================================ */
 function render() {
   var stepCurrent = state.page === "login" ? 1 : state.page === "perfil" ? 2 : state.page === "solicitud" ? 3 : 4;
@@ -580,7 +607,7 @@ function render() {
       renderStepper(stepCurrent) +
       pageHtml +
     '</div>' +
-    '<div class="footer no-print">SEDATU &middot; Direccion General de Capital Humano y Desarrollo Organizacional &middot; Maqueta Funcional</div>';
+    '<div class="footer no-print">SEDATU &middot; Dirección General de Capital Humano y Desarrollo Organizacional &middot; 2027</div>';
 
   attachListeners();
 }
@@ -593,7 +620,6 @@ function setState(patch) {
 function attachListeners() {
   var root = document.getElementById("root");
 
-  // Login
   var loginForm = document.getElementById("login-form");
   if (loginForm) {
     loginForm.addEventListener("submit", function (ev) {
@@ -602,7 +628,7 @@ function attachListeners() {
       var num = document.getElementById("numempleado-input").value.trim();
       var found = EMPLEADOS.filter(function (e) { return e.curp === curp && e.numEmpleado === num; })[0];
       if (!found) {
-        setState({ curp: curp, numEmpleado: num, loginError: "CURP o numero de empleado no coinciden con el padron. Verifica tus datos." });
+        setState({ curp: curp, numEmpleado: num, loginError: "CURP o número de empleado no coinciden con el padrón institucional." });
         return;
       }
       setState({ curp: curp, numEmpleado: num, loginError: "", user: found, page: "perfil" });
@@ -648,6 +674,20 @@ function attachListeners() {
     });
   });
 
+  // Campos DNC Especializada de Área
+  var dncNombre = document.getElementById("dncArea-nombre");
+  if (dncNombre) {
+    dncNombre.addEventListener("input", function (e) { state.dncArea_nombreCurso = e.target.value; });
+  }
+  var dncPart = document.getElementById("dncArea-participantes");
+  if (dncPart) {
+    dncPart.addEventListener("input", function (e) { state.dncArea_participantes = e.target.value; });
+  }
+  var dncJust = document.getElementById("dncArea-justificacion");
+  if (dncJust) {
+    dncJust.addEventListener("input", function (e) { state.dncArea_justificacion = e.target.value; });
+  }
+
   // Envío Solicitud
   var submitBtn = document.getElementById("submit-btn");
   if (submitBtn) {
@@ -655,7 +695,12 @@ function attachListeners() {
       var disponibles = getDisponibles2027(state.user);
       var c1 = disponibles.filter(function (c) { return String(c.id) === String(state.c1_id); })[0];
       var c2 = disponibles.filter(function (c) { return String(c.id) === String(state.c2_id); })[0];
+      var optativos = [];
+      if (c1) optativos.push(c1);
+      if (c2) optativos.push(c2);
+
       var totalOblig = OBLIGATORIOS_2027.reduce(function (a, c) { return a + c.horas; }, 0);
+      var totalOpt = optativos.reduce(function (a, c) { return a + c.horas; }, 0);
 
       var record = {
         cicloCapacitacion: "2027",
@@ -665,9 +710,15 @@ function attachListeners() {
         puesto: state.user.puesto,
         nivel: state.user.nivel,
         area: state.user.area,
+        esArt34: state.user.esArt34,
         cursosObligatorios: OBLIGATORIOS_2027,
-        cursosSolicitados: [c1, c2],
-        totalHorasSolicitud: totalOblig + c1.horas + c2.horas,
+        cursosSolicitados: optativos,
+        dncEspecializada: state.user.esDirectorGeneral ? {
+          nombreCurso: state.dncArea_nombreCurso,
+          participantes: state.dncArea_participantes,
+          justificacion: state.dncArea_justificacion
+        } : null,
+        totalHorasSolicitud: totalOblig + totalOpt,
         fechaSolicitud: new Date().toISOString().slice(0, 10),
         estado: "Registrada"
       };
@@ -675,7 +726,6 @@ function attachListeners() {
     });
   }
 
-  // Nombre de Jefe
   var jefeInput = document.getElementById("jefe-input");
   if (jefeInput) {
     jefeInput.addEventListener("input", function (e) {
@@ -685,7 +735,6 @@ function attachListeners() {
     });
   }
 
-  // Impresión Segura sin bucle de recarga
   var printBtn = document.getElementById("btn-print");
   if (printBtn) {
     printBtn.addEventListener("click", function (ev) {
@@ -697,7 +746,6 @@ function attachListeners() {
     });
   }
 
-  // Botones de acción general
   root.addEventListener("click", function (ev) {
     var el = ev.target.closest("[data-action]");
     if (!el) return;
@@ -707,6 +755,7 @@ function attachListeners() {
         user: null, curp: "", numEmpleado: "", loginError: "",
         c1_cat: "", c1_nom: "", c1_id: "",
         c2_cat: "", c2_nom: "", c2_id: "",
+        dncArea_nombreCurso: "", dncArea_participantes: "", dncArea_justificacion: "",
         jefeInmediato: "", record: null, page: "login"
       });
     } else if (action === "go-solicitud") {
