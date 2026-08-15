@@ -3,182 +3,196 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SEDATU · Sistema de Detección de Necesidades de Capacitación 2027 (Maqueta)</title>
+<title>SEDATU - Sistema de Deteccion de Necesidades de Capacitacion 2027</title>
 
-<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
   html, body, #root { height: 100%; }
-  @media print {
-    body { background: white; }
-  }
+  @media print { body { background: white; } }
 </style>
 </head>
 <body class="bg-stone-50">
 <div id="root"></div>
 
-<script type="text/babel" data-presets="react">
-const { useState, useMemo } = React;
+<script>
+(function () {
+"use strict";
+var e = React.createElement;
+var useState = React.useState;
+var useMemo = React.useMemo;
 
 /* ============================================================
    ICONOS (SVG simples, sin dependencias externas)
    ============================================================ */
-function Icon({ children, className = "w-4 h-4" }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-      strokeLinecap="round" strokeLinejoin="round" className={className}>
-      {children}
-    </svg>
-  );
+function Icon(className, children) {
+  return e("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2",
+    strokeLinecap: "round", strokeLinejoin: "round", className: className || "w-4 h-4" }, children);
 }
-const LogInIcon = (p) => <Icon {...p}><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" /><path d="M10 17l5-5-5-5" /><path d="M15 12H3" /></Icon>;
-const UserIcon = (p) => <Icon {...p}><circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 4-6 8-6s8 2 8 6" /></Icon>;
-const KeyIcon = (p) => <Icon {...p}><circle cx="7" cy="15" r="4" /><path d="M9.5 12.5L20 2" /><path d="M16 6l2 2" /><path d="M13 9l2 2" /></Icon>;
-const BookIcon = (p) => <Icon {...p}><path d="M12 6c-2-2-6-2-8 0v12c2-2 6-2 8 0 2-2 6-2 8 0V6c-2-2-6-2-8 0z" /><path d="M12 6v12" /></Icon>;
-const CheckCircleIcon = (p) => <Icon {...p}><circle cx="12" cy="12" r="9" /><path d="M9 12l2 2 4-4" /></Icon>;
-const AlertIcon = (p) => <Icon {...p}><circle cx="12" cy="12" r="9" /><path d="M12 8v4" /><path d="M12 16h.01" /></Icon>;
-const ClipboardCheckIcon = (p) => <Icon {...p}><rect x="6" y="3" width="12" height="18" rx="2" /><path d="M9 3h6v2H9z" /><path d="M9 13l2 2 4-4" /></Icon>;
-const LogOutIcon = (p) => <Icon {...p}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><path d="M16 17l5-5-5-5" /><path d="M21 12H9" /></Icon>;
-const InfoIcon = (p) => <Icon {...p}><circle cx="12" cy="12" r="9" /><path d="M12 11v5" /><path d="M12 8h.01" /></Icon>;
-const ShieldIcon = (p) => <Icon {...p}><path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6l7-3z" /><path d="M9 12l2 2 4-4" /></Icon>;
-const ChevronRightIcon = (p) => <Icon {...p}><path d="M9 6l6 6-6 6" /></Icon>;
-const PrinterIcon = (p) => <Icon {...p}><path d="M6 9V3h12v6" /><rect x="4" y="9" width="16" height="8" rx="2" /><path d="M6 17h12v4H6z" /></Icon>;
-const PenIcon = (p) => <Icon {...p}><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" /></Icon>;
+function LogInIcon(p) { return Icon((p && p.className), [
+  e("path", { key: 1, d: "M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" }),
+  e("path", { key: 2, d: "M10 17l5-5-5-5" }),
+  e("path", { key: 3, d: "M15 12H3" }) ]); }
+function UserIcon(p) { return Icon((p && p.className), [
+  e("circle", { key: 1, cx: 12, cy: 8, r: 4 }),
+  e("path", { key: 2, d: "M4 20c0-4 4-6 8-6s8 2 8 6" }) ]); }
+function KeyIcon(p) { return Icon((p && p.className), [
+  e("circle", { key: 1, cx: 7, cy: 15, r: 4 }),
+  e("path", { key: 2, d: "M9.5 12.5L20 2" }),
+  e("path", { key: 3, d: "M16 6l2 2" }),
+  e("path", { key: 4, d: "M13 9l2 2" }) ]); }
+function BookIcon(p) { return Icon((p && p.className), [
+  e("path", { key: 1, d: "M12 6c-2-2-6-2-8 0v12c2-2 6-2 8 0 2-2 6-2 8 0V6c-2-2-6-2-8 0z" }),
+  e("path", { key: 2, d: "M12 6v12" }) ]); }
+function CheckCircleIcon(p) { return Icon((p && p.className), [
+  e("circle", { key: 1, cx: 12, cy: 12, r: 9 }),
+  e("path", { key: 2, d: "M9 12l2 2 4-4" }) ]); }
+function AlertIcon(p) { return Icon((p && p.className), [
+  e("circle", { key: 1, cx: 12, cy: 12, r: 9 }),
+  e("path", { key: 2, d: "M12 8v4" }),
+  e("path", { key: 3, d: "M12 16h.01" }) ]); }
+function ClipboardCheckIcon(p) { return Icon((p && p.className), [
+  e("rect", { key: 1, x: 6, y: 3, width: 12, height: 18, rx: 2 }),
+  e("path", { key: 2, d: "M9 3h6v2H9z" }),
+  e("path", { key: 3, d: "M9 13l2 2 4-4" }) ]); }
+function LogOutIcon(p) { return Icon((p && p.className), [
+  e("path", { key: 1, d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" }),
+  e("path", { key: 2, d: "M16 17l5-5-5-5" }),
+  e("path", { key: 3, d: "M21 12H9" }) ]); }
+function InfoIcon(p) { return Icon((p && p.className), [
+  e("circle", { key: 1, cx: 12, cy: 12, r: 9 }),
+  e("path", { key: 2, d: "M12 11v5" }),
+  e("path", { key: 3, d: "M12 8h.01" }) ]); }
+function ShieldIcon(p) { return Icon((p && p.className), [
+  e("path", { key: 1, d: "M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6l7-3z" }),
+  e("path", { key: 2, d: "M9 12l2 2 4-4" }) ]); }
+function ChevronRightIcon(p) { return Icon((p && p.className), [
+  e("path", { key: 1, d: "M9 6l6 6-6 6" }) ]); }
+function PrinterIcon(p) { return Icon((p && p.className), [
+  e("path", { key: 1, d: "M6 9V3h12v6" }),
+  e("rect", { key: 2, x: 4, y: 9, width: 16, height: 8, rx: 2 }),
+  e("path", { key: 3, d: "M6 17h12v4H6z" }) ]); }
+function PenIcon(p) { return Icon((p && p.className), [
+  e("path", { key: 1, d: "M12 20h9" }),
+  e("path", { key: 2, d: "M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" }) ]); }
 
 /* ============================================================
-   DATOS DE PRUEBA (MOCK) — En producción, DGTIC los conectaría a:
-   - Padrón de personal (planrilla) para autenticación y datos de perfil
-   - Histórico de capacitación 2026 (base con corte a octubre)
-   - Catálogo de cursos 2027 administrable desde un perfil de administrador
+   DATOS DE PRUEBA (MOCK)
    ============================================================ */
-
-const EMPLEADOS = [
-  { curp: "GARM850101HDFRZL05", numEmpleado: "10234", nombre: "María Elena García Ruiz", puesto: "Jefa de Departamento", nivel: "OA1", area: "Dirección General de Ordenamiento Territorial y Agrario" },
-  { curp: "LOHJ900312HDFPRN08", numEmpleado: "10567", nombre: "Juan Carlos López Hernández", puesto: "Subdirector de Área", nivel: "NA1", area: "Dirección General de Desarrollo Urbano, Suelo y Vivienda" },
-  { curp: "RAMS930725MDFYRN02", numEmpleado: "10891", nombre: "Sofía Ramírez Mendoza", puesto: "Enlace de Alto Nivel de Responsabilidad", nivel: "OB1", area: "Dirección General de Administración y Finanzas" },
+var EMPLEADOS = [
+  { curp: "GARM850101HDFRZL05", numEmpleado: "10234", nombre: "Maria Elena Garcia Ruiz", puesto: "Jefa de Departamento", nivel: "OA1", area: "Direccion General de Ordenamiento Territorial y Agrario" },
+  { curp: "LOHJ900312HDFPRN08", numEmpleado: "10567", nombre: "Juan Carlos Lopez Hernandez", puesto: "Subdirector de Area", nivel: "NA1", area: "Direccion General de Desarrollo Urbano, Suelo y Vivienda" },
+  { curp: "RAMS930725MDFYRN02", numEmpleado: "10891", nombre: "Sofia Ramirez Mendoza", puesto: "Enlace de Alto Nivel de Responsabilidad", nivel: "OB1", area: "Direccion General de Administracion y Finanzas" }
 ];
-
-const CURSOS_2026 = {
+var CURSOS_2026 = {
   10234: [
-    { nombre: "Obligatorio 1", horas: 10, periodo: "Marzo 2026" },
-    { nombre: "Obligatorio 2", horas: 20, periodo: "Julio 2026" },
+    { nombre: "Etica Publica y Prevencion de Conflictos de Interes", horas: 10, periodo: "Marzo 2026" },
+    { nombre: "Ordenamiento Territorial: Marco Normativo", horas: 20, periodo: "Julio 2026" }
   ],
-  10567: [{ nombre: "Igualdad de Género y No Discriminación", horas: 8, periodo: "Febrero 2026" }],
-  10891: [],
+  10567: [{ nombre: "Igualdad de Genero y No Discriminacion", horas: 8, periodo: "Febrero 2026" }],
+  10891: []
 };
-
-const OBLIGATORIOS_2027 = [
-  { nombre: "Obligatorio 1", horas: 8 },
-  { nombre: "Obligatorio 2", horas: 10 },
+var OBLIGATORIOS_2027 = [
+  { nombre: "Codigo de Etica y Reglas de Integridad 2027", horas: 8, modalidad: "En linea" },
+  { nombre: "Proteccion de Datos Personales en la APF", horas: 8, modalidad: "En linea" }
 ];
-
-const CATALOGO_2027 = [
-  { id: 1, nombre: "Ordenamiento Territorial y Uso de Suelo", horas: 20, modalidad: "Virtual" },
-  { id: 2, nombre: "Redacción de Documentos Oficiales", horas: 15, modalidad: "Virtual" },
-  { id: 3, nombre: "Excel Intermedio", horas: 20, modalidad: "Virtual" },
-  { id: 4, nombre: "Liderazgo y Trabajo en Equipo", horas: 10, modalidad: "Virtual" },
-  { id: 5, nombre: "Igualdad de Género y No Discriminación", horas: 8, modalidad: "En línea" },
-  { id: 6, nombre: "Marco Jurídico de la Administración Pública Federal", horas: 24, modalidad: "Presencial" },
-  { id: 7, nombre: "Atención Ciudadana y Servicio Público", horas: 16, modalidad: "Presencial" },
-  { id: 8, nombre: "Gestión de Proyectos de Vivienda", horas: 30, modalidad: "Presencial" },
-  { id: 9, nombre: "Ética Pública y Prevención de Conflictos de Interés", horas: 10, modalidad: "En línea" },
-  { id: 10, nombre: "Comunicación Efectiva y Redacción Institucional", horas: 12, modalidad: "En línea" },
+var CATALOGO_2027 = [
+  { id: 1, nombre: "Ordenamiento Territorial y Uso de Suelo", horas: 20, modalidad: "Presencial" },
+  { id: 2, nombre: "Redaccion de Documentos Oficiales", horas: 15, modalidad: "En linea" },
+  { id: 3, nombre: "Excel Intermedio para la Administracion Publica", horas: 20, modalidad: "En linea" },
+  { id: 4, nombre: "Liderazgo y Trabajo en Equipo", horas: 10, modalidad: "Presencial" },
+  { id: 5, nombre: "Igualdad de Genero y No Discriminacion", horas: 8, modalidad: "En linea" },
+  { id: 6, nombre: "Marco Juridico de la Administracion Publica Federal", horas: 24, modalidad: "En linea" },
+  { id: 7, nombre: "Atencion Ciudadana y Servicio Publico", horas: 16, modalidad: "Presencial" },
+  { id: 8, nombre: "Gestion de Proyectos de Vivienda", horas: 30, modalidad: "Presencial" },
+  { id: 9, nombre: "Etica Publica y Prevencion de Conflictos de Interes", horas: 10, modalidad: "En linea" },
+  { id: 10, nombre: "Comunicacion Efectiva y Redaccion Institucional", horas: 12, modalidad: "En linea" }
 ];
-
-const HORAS_META_OPTATIVAS = 40;
+var HORAS_META_OPTATIVAS = 40;
 
 /* ============================================================
    COMPONENTES DE APOYO
    ============================================================ */
-
-function Stepper({ current }) {
-  const steps = ["Acceso", "Perfil", "Solicitud", "Confirmación"];
-  return (
-    <ol className="flex items-center w-full mb-2">
-      {steps.map((label, i) => {
-        const idx = i + 1;
-        const active = idx === current;
-        const done = idx < current;
-        return (
-          <li key={label} className="flex items-center flex-1 last:flex-none">
-            <div className="flex items-center gap-2">
-              <span className={"flex items-center justify-center w-7 h-7 rounded-full text-xs font-semibold border-2 shrink-0 " +
-                (done ? "bg-teal-800 border-teal-800 text-white" : active ? "border-amber-600 text-amber-700 bg-amber-50" : "border-stone-300 text-stone-400 bg-white")}>
-                {done ? <CheckCircleIcon className="w-4 h-4" /> : idx}
-              </span>
-              <span className={"text-xs font-medium uppercase tracking-wide hidden sm:inline " +
-                (active ? "text-amber-700" : done ? "text-teal-800" : "text-stone-400")}>{label}</span>
-            </div>
-            {idx !== steps.length && <div className={"flex-1 h-px mx-3 " + (done ? "bg-teal-800" : "bg-stone-300")} />}
-          </li>
-        );
-      })}
-    </ol>
+function Stepper(props) {
+  var current = props.current;
+  var steps = ["Acceso", "Perfil", "Solicitud", "Confirmacion"];
+  return e("ol", { className: "flex items-center w-full mb-2" },
+    steps.map(function (label, i) {
+      var idx = i + 1;
+      var active = idx === current;
+      var done = idx < current;
+      return e("li", { key: label, className: "flex items-center flex-1 last:flex-none" },
+        e("div", { className: "flex items-center gap-2" },
+          e("span", { className: "flex items-center justify-center w-7 h-7 rounded-full text-xs font-semibold border-2 shrink-0 " +
+              (done ? "bg-teal-800 border-teal-800 text-white" : active ? "border-amber-600 text-amber-700 bg-amber-50" : "border-stone-300 text-stone-400 bg-white") },
+            done ? e(CheckCircleIcon, { className: "w-4 h-4" }) : idx),
+          e("span", { className: "text-xs font-medium uppercase tracking-wide hidden sm:inline " +
+              (active ? "text-amber-700" : done ? "text-teal-800" : "text-stone-400") }, label)
+        ),
+        idx !== steps.length ? e("div", { className: "flex-1 h-px mx-3 " + (done ? "bg-teal-800" : "bg-stone-300") }) : null
+      );
+    })
   );
 }
-
-function FieldLabel({ children }) {
-  return <div className="text-xs font-semibold uppercase tracking-wide text-stone-500 mb-1">{children}</div>;
+function FieldLabel(props) {
+  return e("div", { className: "text-xs font-semibold uppercase tracking-wide text-stone-500 mb-1" }, props.children);
 }
-
-function Header({ onLogout, logged }) {
-  return (
-    <div className="bg-teal-900 text-teal-50 print:hidden">
-      <div className="h-1.5 w-full bg-gradient-to-r from-amber-500 via-teal-700 to-amber-500" />
-      <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div>
-          <div className="text-[11px] uppercase tracking-widest text-teal-300">SEDATU · Prototipo</div>
-          <div className="font-semibold tracking-tight text-lg leading-tight">Sistema de Detección de Necesidades de Capacitación 2027</div>
-        </div>
-        {logged && (
-          <button onClick={onLogout} className="text-xs px-3 py-1.5 rounded border border-teal-700 hover:bg-teal-800 flex items-center gap-1">
-            <LogOutIcon className="w-3.5 h-3.5" /> Salir
-          </button>
-        )}
-      </div>
-    </div>
+function Header(props) {
+  var onLogout = props.onLogout, logged = props.logged;
+  return e("div", { className: "bg-teal-900 text-teal-50 print:hidden" },
+    e("div", { className: "h-1.5 w-full bg-gradient-to-r from-amber-500 via-teal-700 to-amber-500" }),
+    e("div", { className: "max-w-3xl mx-auto px-6 py-4 flex items-center justify-between" },
+      e("div", null,
+        e("div", { className: "text-[11px] uppercase tracking-widest text-teal-300" }, "SEDATU \u00b7 Prototipo"),
+        e("div", { className: "font-semibold tracking-tight text-lg leading-tight" }, "Sistema de Deteccion de Necesidades de Capacitacion 2027")
+      ),
+      logged ? e("button", { onClick: onLogout, className: "text-xs px-3 py-1.5 rounded border border-teal-700 hover:bg-teal-800 flex items-center gap-1" },
+        e(LogOutIcon, { className: "w-3.5 h-3.5" }), " Salir") : null
+    )
   );
 }
 
 /* ============================================================
    APP
    ============================================================ */
-
 function App() {
-  const [page, setPage] = useState("login");
-  const [curp, setCurp] = useState("");
-  const [numEmpleado, setNumEmpleado] = useState("");
-  const [loginError, setLoginError] = useState("");
-  const [user, setUser] = useState(null);
-  const [opt1, setOpt1] = useState("");
-  const [opt2, setOpt2] = useState("");
-  const [record, setRecord] = useState(null);
-  const [jefeInmediato, setJefeInmediato] = useState("");
+  var pageState = useState("login"); var page = pageState[0], setPage = pageState[1];
+  var curpState = useState(""); var curp = curpState[0], setCurp = curpState[1];
+  var numEmpState = useState(""); var numEmpleado = numEmpState[0], setNumEmpleado = numEmpState[1];
+  var loginErrState = useState(""); var loginError = loginErrState[0], setLoginError = loginErrState[1];
+  var userState = useState(null); var user = userState[0], setUser = userState[1];
+  var opt1State = useState(""); var opt1 = opt1State[0], setOpt1 = opt1State[1];
+  var opt2State = useState(""); var opt2 = opt2State[0], setOpt2 = opt2State[1];
+  var recordState = useState(null); var record = recordState[0], setRecord = recordState[1];
+  var jefeState = useState(""); var jefeInmediato = jefeState[0], setJefeInmediato = jefeState[1];
 
-  const cursos2026 = user ? CURSOS_2026[user.numEmpleado] || [] : [];
+  var cursos2026 = user ? (CURSOS_2026[user.numEmpleado] || []) : [];
 
-  const disponibles = useMemo(() => {
+  var disponibles = useMemo(function () {
     if (!user) return [];
-    const nombresTomados = new Set(cursos2026.map((c) => c.nombre));
-    return CATALOGO_2027.filter((c) => !nombresTomados.has(c.nombre));
+    var nombresTomados = {};
+    cursos2026.forEach(function (c) { nombresTomados[c.nombre] = true; });
+    return CATALOGO_2027.filter(function (c) { return !nombresTomados[c.nombre]; });
   }, [user, cursos2026]);
 
-  const cursoOpt1 = disponibles.find((c) => String(c.id) === opt1);
-  const cursoOpt2 = disponibles.find((c) => String(c.id) === opt2);
-  const horasOpt1 = cursoOpt1 ? cursoOpt1.horas : 0;
-  const horasOpt2 = cursoOpt2 ? cursoOpt2.horas : 0;
-  const totalOptativas = horasOpt1 + horasOpt2;
-  const totalGeneral = OBLIGATORIOS_2027.reduce((a, c) => a + c.horas, 0) + totalOptativas;
-  const puedeEnviar = opt1 && opt2 && opt1 !== opt2 && totalOptativas === HORAS_META_OPTATIVAS;
+  var cursoOpt1 = disponibles.filter(function (c) { return String(c.id) === opt1; })[0];
+  var cursoOpt2 = disponibles.filter(function (c) { return String(c.id) === opt2; })[0];
+  var horasOpt1 = cursoOpt1 ? cursoOpt1.horas : 0;
+  var horasOpt2 = cursoOpt2 ? cursoOpt2.horas : 0;
+  var totalOptativas = horasOpt1 + horasOpt2;
+  var totalObligatorias = OBLIGATORIOS_2027.reduce(function (a, c) { return a + c.horas; }, 0);
+  var totalGeneral = totalObligatorias + totalOptativas;
+  var puedeEnviar = opt1 && opt2 && opt1 !== opt2 && totalOptativas === HORAS_META_OPTATIVAS;
 
-  function handleLogin(e) {
-    e.preventDefault();
-    const found = EMPLEADOS.find((emp) => emp.curp.toUpperCase() === curp.trim().toUpperCase() && emp.numEmpleado === numEmpleado.trim());
+  function handleLogin(ev) {
+    ev.preventDefault();
+    var found = EMPLEADOS.filter(function (emp) {
+      return emp.curp.toUpperCase() === curp.trim().toUpperCase() && emp.numEmpleado === numEmpleado.trim();
+    })[0];
     if (!found) {
-      setLoginError("CURP o número de empleado no coinciden con el padrón. Verifica tus datos.");
+      setLoginError("CURP o numero de empleado no coinciden con el padron. Verifica tus datos.");
       return;
     }
     setLoginError("");
@@ -187,339 +201,237 @@ function App() {
   }
 
   function handleLogout() {
-    setUser(null);
-    setCurp("");
-    setNumEmpleado("");
-    setOpt1("");
-    setOpt2("");
-    setRecord(null);
-    setJefeInmediato("");
-    setPage("login");
+    setUser(null); setCurp(""); setNumEmpleado(""); setOpt1(""); setOpt2("");
+    setRecord(null); setJefeInmediato(""); setPage("login");
   }
 
   function handleSubmit() {
-    const nuevoRegistro = {
+    var nuevoRegistro = {
       cicloCapacitacion: "2027",
-      numEmpleado: user.numEmpleado,
-      curp: user.curp,
-      nombre: user.nombre,
-      puesto: user.puesto,
-      nivel: user.nivel,
-      area: user.area,
+      numEmpleado: user.numEmpleado, curp: user.curp, nombre: user.nombre,
+      puesto: user.puesto, nivel: user.nivel, area: user.area,
       cursosObligatorios: OBLIGATORIOS_2027,
       cursosSolicitados: [
         { nombre: cursoOpt1.nombre, horas: cursoOpt1.horas, modalidad: cursoOpt1.modalidad },
-        { nombre: cursoOpt2.nombre, horas: cursoOpt2.horas, modalidad: cursoOpt2.modalidad },
+        { nombre: cursoOpt2.nombre, horas: cursoOpt2.horas, modalidad: cursoOpt2.modalidad }
       ],
       totalHorasSolicitud: totalGeneral,
       fechaSolicitud: new Date().toISOString().slice(0, 10),
-      estado: "Pendiente de validación",
+      estado: "Pendiente de validacion"
     };
     setRecord(nuevoRegistro);
     setPage("confirmacion");
   }
 
-  return (
-    <div className="min-h-full bg-stone-50 text-stone-800 flex flex-col">
-      <Header onLogout={handleLogout} logged={!!user} />
+  var stepCurrent = page === "login" ? 1 : page === "perfil" ? 2 : page === "solicitud" ? 3 : 4;
 
-      <div className="max-w-3xl w-full mx-auto px-6 py-8 flex-1">
-        <div className="print:hidden">
-          <Stepper current={page === "login" ? 1 : page === "perfil" ? 2 : page === "solicitud" ? 3 : 4} />
-        </div>
+  var loginPage = page === "login" ? e("div", { className: "mt-6 bg-white border border-stone-200 rounded-lg shadow-sm max-w-md mx-auto p-8" },
+    e("div", { className: "flex items-center gap-2 mb-1" },
+      e(LogInIcon, { className: "w-5 h-5 text-teal-800" }),
+      e("h2", { className: "font-semibold text-lg text-stone-800" }, "Acceso al sistema")),
+    e("p", { className: "text-sm text-stone-500 mb-6" }, "Ingresa con tu CURP y tu numero de empleado como contrasena."),
+    e("form", { onSubmit: handleLogin, className: "space-y-4" },
+      e("div", null,
+        e(FieldLabel, null, "CURP"),
+        e("div", { className: "relative" },
+          e(UserIcon, { className: "w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" }),
+          e("input", {
+            value: curp, onChange: function (ev) { setCurp(ev.target.value.toUpperCase()); },
+            placeholder: "GARM850101HDFRZL05", maxLength: 18,
+            className: "w-full border border-stone-300 rounded pl-9 pr-3 py-2 text-sm uppercase tracking-wide focus:outline-none focus:ring-2 focus:ring-teal-700"
+          }))),
+      e("div", null,
+        e(FieldLabel, null, "Numero de empleado (contrasena)"),
+        e("div", { className: "relative" },
+          e(KeyIcon, { className: "w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" }),
+          e("input", {
+            value: numEmpleado, onChange: function (ev) { setNumEmpleado(ev.target.value); },
+            placeholder: "10234", type: "password",
+            className: "w-full border border-stone-300 rounded pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-700"
+          }))),
+      loginError ? e("div", { className: "flex items-start gap-2 text-sm text-red-700 bg-red-50 border border-red-200 rounded px-3 py-2" },
+        e(AlertIcon, { className: "w-4 h-4 mt-0.5 shrink-0" }), loginError) : null,
+      e("button", { type: "submit", className: "w-full bg-teal-800 hover:bg-teal-900 text-white text-sm font-medium py-2.5 rounded transition-colors" }, "Iniciar sesion")
+    ),
+    e("div", { className: "mt-6 border-t border-stone-100 pt-4" },
+      e("div", { className: "text-xs text-stone-400 mb-2" }, "Cuentas de prueba (maqueta):"),
+      e("ul", { className: "text-xs text-stone-500 space-y-1" },
+        EMPLEADOS.map(function (emp) {
+          return e("li", { key: emp.numEmpleado },
+            e("button", {
+              type: "button",
+              onClick: function () { setCurp(emp.curp); setNumEmpleado(emp.numEmpleado); },
+              className: "underline decoration-dotted hover:text-teal-800"
+            }, emp.curp + " \u2014 " + emp.numEmpleado + " (" + emp.nombre.split(" ")[0] + ")"));
+        })
+      )
+    )
+  ) : null;
 
-        {/* ---------------- LOGIN ---------------- */}
-        {page === "login" && (
-          <div className="mt-6 bg-white border border-stone-200 rounded-lg shadow-sm max-w-md mx-auto p-8">
-            <div className="flex items-center gap-2 mb-1">
-              <LogInIcon className="w-5 h-5 text-teal-800" />
-              <h2 className="font-semibold text-lg text-stone-800">Acceso al sistema</h2>
-            </div>
-            <p className="text-sm text-stone-500 mb-6">Ingresa con tu CURP y tu número de empleado como contraseña.</p>
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div>
-                <FieldLabel>CURP</FieldLabel>
-                <div className="relative">
-                  <UserIcon className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                  <input value={curp} onChange={(e) => setCurp(e.target.value.toUpperCase())} placeholder="GARM850101HDFRZL05" maxLength={18}
-                    className="w-full border border-stone-300 rounded pl-9 pr-3 py-2 text-sm uppercase tracking-wide focus:outline-none focus:ring-2 focus:ring-teal-700" />
-                </div>
-              </div>
-              <div>
-                <FieldLabel>Número de empleado (contraseña)</FieldLabel>
-                <div className="relative">
-                  <KeyIcon className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                  <input value={numEmpleado} onChange={(e) => setNumEmpleado(e.target.value)} placeholder="10234" type="password"
-                    className="w-full border border-stone-300 rounded pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-700" />
-                </div>
-              </div>
-              {loginError && (
-                <div className="flex items-start gap-2 text-sm text-red-700 bg-red-50 border border-red-200 rounded px-3 py-2">
-                  <AlertIcon className="w-4 h-4 mt-0.5 shrink-0" /> {loginError}
-                </div>
-              )}
-              <button type="submit" className="w-full bg-teal-800 hover:bg-teal-900 text-white text-sm font-medium py-2.5 rounded transition-colors">
-                Iniciar sesión
-              </button>
-            </form>
-            <div className="mt-6 border-t border-stone-100 pt-4">
-              <div className="text-xs text-stone-400 mb-2">Cuentas de prueba (maqueta):</div>
-              <ul className="text-xs text-stone-500 space-y-1">
-                {EMPLEADOS.map((e) => (
-                  <li key={e.numEmpleado}>
-                    <button type="button" onClick={() => { setCurp(e.curp); setNumEmpleado(e.numEmpleado); }} className="underline decoration-dotted hover:text-teal-800">
-                      {e.curp} — {e.numEmpleado} ({e.nombre.split(" ")[0]})
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        )}
+  var perfilPage = (page === "perfil" && user) ? e("div", { className: "mt-6 space-y-6" },
+    e("div", { className: "bg-white border border-stone-200 rounded-lg shadow-sm p-6" },
+      e("div", { className: "flex items-center gap-2 mb-4" },
+        e(UserIcon, { className: "w-5 h-5 text-teal-800" }),
+        e("h2", { className: "font-semibold text-lg text-stone-800" }, "Perfil de usuario")),
+      e("div", { className: "grid sm:grid-cols-2 gap-4" },
+        e("div", null, e(FieldLabel, null, "Nombre"), e("div", { className: "text-sm text-stone-800" }, user.nombre)),
+        e("div", null, e(FieldLabel, null, "CURP"), e("div", { className: "text-sm text-stone-800" }, user.curp)),
+        e("div", null, e(FieldLabel, null, "Tipo de puesto"), e("div", { className: "text-sm text-stone-800" }, user.puesto)),
+        e("div", null, e(FieldLabel, null, "Nivel"), e("div", { className: "text-sm text-stone-800" }, user.nivel)),
+        e("div", { className: "sm:col-span-2" }, e(FieldLabel, null, "Area de adscripcion"), e("div", { className: "text-sm text-stone-800" }, user.area))
+      )
+    ),
+    e("div", { className: "bg-white border border-stone-200 rounded-lg shadow-sm p-6" },
+      e("div", { className: "flex items-center gap-2 mb-1" },
+        e(BookIcon, { className: "w-5 h-5 text-teal-800" }),
+        e("h3", { className: "font-semibold text-stone-800" }, "Cursos tomados en 2026")),
+      e("p", { className: "text-xs text-stone-500 mb-4" }, "Revisa este historial antes de solicitar tus cursos 2027 para no repetir capacitacion ya tomada."),
+      cursos2026.length === 0
+        ? e("div", { className: "text-sm text-stone-400 italic border border-dashed border-stone-200 rounded px-4 py-3" }, "No se registra capacitacion tomada durante 2026.")
+        : e("table", { className: "w-full text-sm" },
+            e("thead", null, e("tr", { className: "text-left text-xs uppercase tracking-wide text-stone-400 border-b border-stone-200" },
+              e("th", { className: "py-2 pr-2" }, "Curso"), e("th", { className: "py-2 pr-2" }, "Horas"), e("th", { className: "py-2" }, "Periodo"))),
+            e("tbody", null, cursos2026.map(function (c, i) {
+              return e("tr", { key: i, className: "border-b border-stone-100 last:border-0" },
+                e("td", { className: "py-2 pr-2 text-stone-700" }, c.nombre),
+                e("td", { className: "py-2 pr-2 text-stone-700" }, c.horas + " h"),
+                e("td", { className: "py-2 text-stone-500" }, c.periodo));
+            }))
+          )
+    ),
+    e("button", { onClick: function () { setPage("solicitud"); },
+      className: "w-full bg-teal-800 hover:bg-teal-900 text-white text-sm font-medium py-2.5 rounded transition-colors flex items-center justify-center gap-1" },
+      "Confirmar datos y continuar ", e(ChevronRightIcon, { className: "w-4 h-4" }))
+  ) : null;
 
-        {/* ---------------- PERFIL ---------------- */}
-        {page === "perfil" && user && (
-          <div className="mt-6 space-y-6">
-            <div className="bg-white border border-stone-200 rounded-lg shadow-sm p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <UserIcon className="w-5 h-5 text-teal-800" />
-                <h2 className="font-semibold text-lg text-stone-800">Perfil de usuario</h2>
-              </div>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div><FieldLabel>Nombre</FieldLabel><div className="text-sm text-stone-800">{user.nombre}</div></div>
-                <div><FieldLabel>CURP</FieldLabel><div className="text-sm text-stone-800">{user.curp}</div></div>
-                <div><FieldLabel>Tipo de puesto</FieldLabel><div className="text-sm text-stone-800">{user.puesto}</div></div>
-                <div><FieldLabel>Nivel</FieldLabel><div className="text-sm text-stone-800">{user.nivel}</div></div>
-                <div className="sm:col-span-2"><FieldLabel>Área de adscripción</FieldLabel><div className="text-sm text-stone-800">{user.area}</div></div>
-              </div>
-            </div>
+  var solicitudPage = (page === "solicitud" && user) ? e("div", { className: "mt-6 space-y-6" },
+    e("div", { className: "bg-white border border-stone-200 rounded-lg shadow-sm p-6" },
+      e("div", { className: "flex items-center gap-2 mb-1" },
+        e(ShieldIcon, { className: "w-5 h-5 text-teal-800" }),
+        e("h3", { className: "font-semibold text-stone-800" }, "Cursos obligatorios 2027")),
+      e("p", { className: "text-xs text-stone-500 mb-4" }, "Precargados para todo el personal, no requieren seleccion."),
+      e("div", { className: "grid sm:grid-cols-2 gap-3" },
+        OBLIGATORIOS_2027.map(function (c, i) {
+          return e("div", { key: i, className: "border border-amber-200 bg-amber-50 rounded px-4 py-3" },
+            e("div", { className: "text-xs uppercase tracking-wide text-amber-700 font-semibold mb-1" }, "Obligatorio"),
+            e("div", { className: "text-sm text-stone-800" }, c.nombre),
+            e("div", { className: "text-xs text-stone-500 mt-1" }, c.horas + " h \u00b7 " + c.modalidad));
+        })
+      )
+    ),
+    e("div", { className: "bg-white border border-stone-200 rounded-lg shadow-sm p-6" },
+      e("div", { className: "flex items-center justify-between mb-1" },
+        e("h3", { className: "font-semibold text-stone-800" }, "Cursos optativos (2027)"),
+        e("span", { className: "text-xs font-semibold px-2.5 py-1 rounded-full " +
+            (totalOptativas === HORAS_META_OPTATIVAS ? "bg-emerald-100 text-emerald-700" : "bg-stone-100 text-stone-600") },
+          totalOptativas + " / " + HORAS_META_OPTATIVAS + " h")),
+      e("p", { className: "text-xs text-stone-500 mb-4" }, "Los cursos ya tomados en 2026 no aparecen en las listas. Selecciona dos cursos cuya suma de horas sea exactamente " + HORAS_META_OPTATIVAS + "."),
+      e("div", { className: "grid sm:grid-cols-2 gap-4" },
+        e("div", null,
+          e(FieldLabel, null, "Curso optativo 1"),
+          e("select", { value: opt1, onChange: function (ev) { setOpt1(ev.target.value); },
+              className: "w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-700" },
+            [e("option", { key: "d1", value: "" }, "Selecciona un curso...")].concat(
+              disponibles.filter(function (c) { return String(c.id) !== opt2; }).map(function (c) {
+                return e("option", { key: c.id, value: c.id }, c.nombre + " (" + c.horas + " h)");
+              })))
+        ),
+        e("div", null,
+          e(FieldLabel, null, "Curso optativo 2"),
+          e("select", { value: opt2, onChange: function (ev) { setOpt2(ev.target.value); },
+              className: "w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-700" },
+            [e("option", { key: "d2", value: "" }, "Selecciona un curso...")].concat(
+              disponibles.filter(function (c) { return String(c.id) !== opt1; }).map(function (c) {
+                return e("option", { key: c.id, value: c.id }, c.nombre + " (" + c.horas + " h)");
+              })))
+        )
+      ),
+      (opt1 && opt2 && totalOptativas !== HORAS_META_OPTATIVAS) ? e("div", { className: "mt-4 flex items-start gap-2 text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded px-3 py-2" },
+        e(AlertIcon, { className: "w-4 h-4 mt-0.5 shrink-0" }),
+        totalOptativas < HORAS_META_OPTATIVAS
+          ? ("Faltan " + (HORAS_META_OPTATIVAS - totalOptativas) + " horas para completar el total requerido.")
+          : ("Te excedes por " + (totalOptativas - HORAS_META_OPTATIVAS) + " horas del total requerido.")
+      ) : null
+    ),
+    e("div", { className: "bg-white border border-stone-200 rounded-lg shadow-sm p-6" },
+      e("div", { className: "flex items-center gap-2 mb-2" },
+        e(InfoIcon, { className: "w-4 h-4 text-teal-800" }),
+        e("h3", { className: "font-semibold text-stone-800 text-sm" }, "Normatividad aplicable")),
+      e("div", { className: "text-xs text-stone-500 bg-stone-50 border border-dashed border-stone-300 rounded px-4 py-3 leading-relaxed" },
+        "[Espacio reservado para citar el fundamento legal vigente de la Deteccion de Necesidades de Capacitacion \u2014 por ejemplo, lineamientos internos de la Direccion General de Recursos Humanos, el Programa Anual de Capacitacion de SEDATU, y/o la normatividad del Servicio Profesional de Carrera que resulte aplicable. Este texto es un marcador de posicion; su contenido definitivo debe ser validado por el area juridica/normativa correspondiente antes de publicarse.]")
+    ),
+    e("div", { className: "bg-stone-100 border border-stone-200 rounded-lg px-6 py-4 flex items-center justify-between" },
+      e("div", { className: "text-sm text-stone-600" }, "Total de la solicitud (obligatorios + optativos): ",
+        e("span", { className: "font-semibold text-stone-800" }, totalGeneral + " h"))),
+    e("button", { disabled: !puedeEnviar, onClick: handleSubmit,
+      className: "w-full text-sm font-medium py-2.5 rounded transition-colors flex items-center justify-center gap-1 " +
+        (puedeEnviar ? "bg-teal-800 hover:bg-teal-900 text-white" : "bg-stone-200 text-stone-400 cursor-not-allowed") },
+      e(ClipboardCheckIcon, { className: "w-4 h-4" }), " Enviar solicitud de capacitacion 2027")
+  ) : null;
 
-            <div className="bg-white border border-stone-200 rounded-lg shadow-sm p-6">
-              <div className="flex items-center gap-2 mb-1">
-                <BookIcon className="w-5 h-5 text-teal-800" />
-                <h3 className="font-semibold text-stone-800">Cursos tomados en 2026</h3>
-              </div>
-              <p className="text-xs text-stone-500 mb-4">Revisa este historial antes de solicitar tus cursos 2027 para no repetir capacitación ya tomada.</p>
-              {cursos2026.length === 0 ? (
-                <div className="text-sm text-stone-400 italic border border-dashed border-stone-200 rounded px-4 py-3">No se registra capacitación tomada durante 2026.</div>
-              ) : (
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="text-left text-xs uppercase tracking-wide text-stone-400 border-b border-stone-200">
-                      <th className="py-2 pr-2">Curso</th><th className="py-2 pr-2">Horas</th><th className="py-2">Periodo</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {cursos2026.map((c, i) => (
-                      <tr key={i} className="border-b border-stone-100 last:border-0">
-                        <td className="py-2 pr-2 text-stone-700">{c.nombre}</td>
-                        <td className="py-2 pr-2 text-stone-700">{c.horas} h</td>
-                        <td className="py-2 text-stone-500">{c.periodo}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
-            </div>
-
-            <button onClick={() => setPage("solicitud")} className="w-full bg-teal-800 hover:bg-teal-900 text-white text-sm font-medium py-2.5 rounded transition-colors flex items-center justify-center gap-1">
-              Confirmar datos y continuar <ChevronRightIcon className="w-4 h-4" />
-            </button>
-          </div>
-        )}
-
-        {/* ---------------- SOLICITUD ---------------- */}
-        {page === "solicitud" && user && (
-          <div className="mt-6 space-y-6">
-            <div className="bg-white border border-stone-200 rounded-lg shadow-sm p-6">
-              <div className="flex items-center gap-2 mb-1">
-                <ShieldIcon className="w-5 h-5 text-teal-800" />
-                <h3 className="font-semibold text-stone-800">Cursos obligatorios 2027</h3>
-              </div>
-              <p className="text-xs text-stone-500 mb-4">Precargados para todo el personal, no requieren selección.</p>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {OBLIGATORIOS_2027.map((c, i) => (
-                  <div key={i} className="border border-amber-200 bg-amber-50 rounded px-4 py-3">
-                    <div className="text-xs uppercase tracking-wide text-amber-700 font-semibold mb-1">Obligatorio</div>
-                    <div className="text-sm text-stone-800">{c.nombre}</div>
-                    <div className="text-xs text-stone-500 mt-1">{c.horas} h · {c.modalidad}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-white border border-stone-200 rounded-lg shadow-sm p-6">
-              <div className="flex items-center justify-between mb-1">
-                <h3 className="font-semibold text-stone-800">Cursos optativos (2027)</h3>
-                <span className={"text-xs font-semibold px-2.5 py-1 rounded-full " + (totalOptativas === HORAS_META_OPTATIVAS ? "bg-emerald-100 text-emerald-700" : "bg-stone-100 text-stone-600")}>
-                  {totalOptativas} / {HORAS_META_OPTATIVAS} h
-                </span>
-              </div>
-              <p className="text-xs text-stone-500 mb-4">Los cursos ya tomados en 2026 no aparecen en las listas. Selecciona dos cursos cuya suma de horas sea exactamente {HORAS_META_OPTATIVAS}.</p>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <FieldLabel>Curso optativo 1</FieldLabel>
-                  <select value={opt1} onChange={(e) => setOpt1(e.target.value)} className="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-700">
-                    <option value="">Selecciona un curso…</option>
-                    {disponibles.filter((c) => String(c.id) !== opt2).map((c) => (
-                      <option key={c.id} value={c.id}>{c.nombre} ({c.horas} h)</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <FieldLabel>Curso optativo 2</FieldLabel>
-                  <select value={opt2} onChange={(e) => setOpt2(e.target.value)} className="w-full border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-700">
-                    <option value="">Selecciona un curso…</option>
-                    {disponibles.filter((c) => String(c.id) !== opt1).map((c) => (
-                      <option key={c.id} value={c.id}>{c.nombre} ({c.horas} h)</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              {opt1 && opt2 && totalOptativas !== HORAS_META_OPTATIVAS && (
-                <div className="mt-4 flex items-start gap-2 text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded px-3 py-2">
-                  <AlertIcon className="w-4 h-4 mt-0.5 shrink-0" />
-                  {totalOptativas < HORAS_META_OPTATIVAS
-                    ? `Faltan ${HORAS_META_OPTATIVAS - totalOptativas} horas para completar el total requerido.`
-                    : `Te excedes por ${totalOptativas - HORAS_META_OPTATIVAS} horas del total requerido.`}
-                </div>
-              )}
-            </div>
-
-            <div className="bg-white border border-stone-200 rounded-lg shadow-sm p-6">
-              <div className="flex items-center gap-2 mb-2">
-                <InfoIcon className="w-4 h-4 text-teal-800" />
-                <h3 className="font-semibold text-stone-800 text-sm">Normatividad aplicable</h3>
-              </div>
-              <div className="text-xs text-stone-500 bg-stone-50 border border-dashed border-stone-300 rounded px-4 py-3 leading-relaxed">
-                [Espacio reservado para citar el fundamento legal vigente de la Detección de Necesidades de Capacitación —
-                por ejemplo, lineamientos internos de la Dirección General de Recursos Humanos, el Programa Anual de
-                Capacitación de SEDATU, y/o la normatividad del Servicio Profesional de Carrera que resulte aplicable.
-                Este texto es un marcador de posición; su contenido definitivo debe ser validado por el área
-                jurídica/normativa correspondiente antes de publicarse.]
-              </div>
-            </div>
-
-            <div className="bg-stone-100 border border-stone-200 rounded-lg px-6 py-4 flex items-center justify-between">
-              <div className="text-sm text-stone-600">Total de la solicitud (obligatorios + optativos): <span className="font-semibold text-stone-800">{totalGeneral} h</span></div>
-            </div>
-
-            <button disabled={!puedeEnviar} onClick={handleSubmit}
-              className={"w-full text-sm font-medium py-2.5 rounded transition-colors flex items-center justify-center gap-1 " +
-                (puedeEnviar ? "bg-teal-800 hover:bg-teal-900 text-white" : "bg-stone-200 text-stone-400 cursor-not-allowed")}>
-              <ClipboardCheckIcon className="w-4 h-4" /> Enviar solicitud de capacitación 2027
-            </button>
-          </div>
-        )}
-
-        {/* ---------------- CONFIRMACIÓN ---------------- */}
-        {page === "confirmacion" && record && (
-          <div className="mt-6 space-y-6">
-            <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 flex items-center gap-3 print:hidden">
-              <CheckCircleIcon className="w-5 h-5 text-emerald-600 shrink-0" />
-              <p className="text-sm text-emerald-700">Solicitud registrada. Imprime este comprobante para recabar las firmas de autorización.</p>
-            </div>
-
-            <div className="bg-white border border-stone-200 rounded-lg shadow-sm p-8 print:border-0 print:shadow-none print:p-0">
-              <div className="flex items-center justify-between border-b border-stone-200 pb-4 mb-6">
-                <div>
-                  <div className="text-[11px] uppercase tracking-widest text-stone-400">SEDATU</div>
-                  <h2 className="font-semibold text-lg text-stone-800 leading-tight">Solicitud de Capacitación — Ciclo {record.cicloCapacitacion}</h2>
-                </div>
-                <div className="text-right text-xs text-stone-500">
-                  <div>Folio: {record.numEmpleado}-{record.fechaSolicitud}</div>
-                  <div>Fecha: {record.fechaSolicitud}</div>
-                </div>
-              </div>
-
-              <h3 className="text-xs font-semibold uppercase tracking-wide text-stone-500 mb-2">Datos del empleado</h3>
-              <div className="grid sm:grid-cols-2 gap-3 mb-6 text-sm">
-                <div><span className="text-stone-400">Nombre: </span><span className="text-stone-800">{record.nombre}</span></div>
-                <div><span className="text-stone-400">CURP: </span><span className="text-stone-800">{record.curp}</span></div>
-                <div><span className="text-stone-400">Número de empleado: </span><span className="text-stone-800">{record.numEmpleado}</span></div>
-                <div><span className="text-stone-400">Tipo de puesto: </span><span className="text-stone-800">{record.puesto}</span></div>
-                <div><span className="text-stone-400">Nivel: </span><span className="text-stone-800">{record.nivel}</span></div>
-                <div className="sm:col-span-2"><span className="text-stone-400">Área de adscripción: </span><span className="text-stone-800">{record.area}</span></div>
-              </div>
-
-              <h3 className="text-xs font-semibold uppercase tracking-wide text-stone-500 mb-2">Cursos solicitados</h3>
-              <table className="w-full text-sm mb-2">
-                <thead>
-                  <tr className="text-left text-xs uppercase tracking-wide text-stone-400 border-b border-stone-200">
-                    <th className="py-2 pr-2">Curso</th><th className="py-2 pr-2">Tipo</th><th className="py-2">Horas</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {record.cursosObligatorios.map((c, i) => (
-                    <tr key={"o" + i} className="border-b border-stone-100">
-                      <td className="py-2 pr-2 text-stone-700">{c.nombre}</td>
-                      <td className="py-2 pr-2 text-amber-700">Obligatorio</td>
-                      <td className="py-2 text-stone-700">{c.horas} h</td>
-                    </tr>
-                  ))}
-                  {record.cursosSolicitados.map((c, i) => (
-                    <tr key={"s" + i} className="border-b border-stone-100">
-                      <td className="py-2 pr-2 text-stone-700">{c.nombre}</td>
-                      <td className="py-2 pr-2 text-teal-700">Optativo</td>
-                      <td className="py-2 text-stone-700">{c.horas} h</td>
-                    </tr>
-                  ))}
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td className="pt-2 text-right font-semibold text-stone-600" colSpan={2}>Total</td>
-                    <td className="pt-2 font-semibold text-stone-800">{record.totalHorasSolicitud} h</td>
-                  </tr>
-                </tfoot>
-              </table>
-
-              <div className="mb-8 print:hidden">
-                <FieldLabel>Nombre del jefe inmediato (para el recuadro de firma)</FieldLabel>
-                <input value={jefeInmediato} onChange={(e) => setJefeInmediato(e.target.value)} placeholder="Nombre completo del jefe inmediato"
-                  className="w-full sm:w-1/2 border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-700" />
-              </div>
-
-              <h3 className="text-xs font-semibold uppercase tracking-wide text-stone-500 mb-4 mt-8">Autorización</h3>
-              <div className="grid sm:grid-cols-2 gap-8 mt-10">
-                <div className="text-center">
-                  <div className="border-t border-stone-400 pt-2">
-                    <div className="text-sm text-stone-800">{record.nombre}</div>
-                    <div className="text-xs text-stone-500 flex items-center justify-center gap-1 mt-1">
-                      <PenIcon className="w-3 h-3" /> Nombre y firma del empleado solicitante
-                    </div>
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="border-t border-stone-400 pt-2">
-                    <div className="text-sm text-stone-800">{jefeInmediato || "\u00A0"}</div>
-                    <div className="text-xs text-stone-500 flex items-center justify-center gap-1 mt-1">
-                      <PenIcon className="w-3 h-3" /> Nombre y firma del jefe inmediato (autoriza)
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex gap-3 print:hidden">
-              <button onClick={() => window.print()} className="flex-1 bg-teal-800 hover:bg-teal-900 text-white text-sm font-medium py-2.5 rounded transition-colors flex items-center justify-center gap-2">
-                <PrinterIcon className="w-4 h-4" /> Imprimir comprobante
-              </button>
-              <button onClick={handleLogout} className="flex-1 bg-stone-100 hover:bg-stone-200 text-stone-700 text-sm font-medium py-2.5 rounded transition-colors">
-                Cerrar sesión
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="text-center text-xs text-stone-400 py-6 print:hidden">
-        Maqueta de trabajo — no usa datos reales del personal. Elaborado para discusión con DGTIC.
-      </div>
-    </div>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
-</script>
-</body>
-</html>
+  var confirmacionPage = (page === "confirmacion" && record) ? e("div", { className: "mt-6 space-y-6" },
+    e("div", { className: "bg-emerald-50 border border-emerald-200 rounded-lg p-4 flex items-center gap-3 print:hidden" },
+      e(CheckCircleIcon, { className: "w-5 h-5 text-emerald-600 shrink-0" }),
+      e("p", { className: "text-sm text-emerald-700" }, "Solicitud registrada. Imprime este comprobante para recabar las firmas de autorizacion.")),
+    e("div", { className: "bg-white border border-stone-200 rounded-lg shadow-sm p-8 print:border-0 print:shadow-none print:p-0" },
+      e("div", { className: "flex items-center justify-between border-b border-stone-200 pb-4 mb-6" },
+        e("div", null,
+          e("div", { className: "text-[11px] uppercase tracking-widest text-stone-400" }, "SEDATU"),
+          e("h2", { className: "font-semibold text-lg text-stone-800 leading-tight" }, "Solicitud de Capacitacion \u2014 Ciclo " + record.cicloCapacitacion)),
+        e("div", { className: "text-right text-xs text-stone-500" },
+          e("div", null, "Folio: " + record.numEmpleado + "-" + record.fechaSolicitud),
+          e("div", null, "Fecha: " + record.fechaSolicitud))
+      ),
+      e("h3", { className: "text-xs font-semibold uppercase tracking-wide text-stone-500 mb-2" }, "Datos del empleado"),
+      e("div", { className: "grid sm:grid-cols-2 gap-3 mb-6 text-sm" },
+        e("div", null, e("span", { className: "text-stone-400" }, "Nombre: "), e("span", { className: "text-stone-800" }, record.nombre)),
+        e("div", null, e("span", { className: "text-stone-400" }, "CURP: "), e("span", { className: "text-stone-800" }, record.curp)),
+        e("div", null, e("span", { className: "text-stone-400" }, "Numero de empleado: "), e("span", { className: "text-stone-800" }, record.numEmpleado)),
+        e("div", null, e("span", { className: "text-stone-400" }, "Tipo de puesto: "), e("span", { className: "text-stone-800" }, record.puesto)),
+        e("div", null, e("span", { className: "text-stone-400" }, "Nivel: "), e("span", { className: "text-stone-800" }, record.nivel)),
+        e("div", { className: "sm:col-span-2" }, e("span", { className: "text-stone-400" }, "Area de adscripcion: "), e("span", { className: "text-stone-800" }, record.area))
+      ),
+      e("h3", { className: "text-xs font-semibold uppercase tracking-wide text-stone-500 mb-2" }, "Cursos solicitados"),
+      e("table", { className: "w-full text-sm mb-2" },
+        e("thead", null, e("tr", { className: "text-left text-xs uppercase tracking-wide text-stone-400 border-b border-stone-200" },
+          e("th", { className: "py-2 pr-2" }, "Curso"), e("th", { className: "py-2 pr-2" }, "Tipo"), e("th", { className: "py-2" }, "Horas"))),
+        e("tbody", null,
+          record.cursosObligatorios.map(function (c, i) {
+            return e("tr", { key: "o" + i, className: "border-b border-stone-100" },
+              e("td", { className: "py-2 pr-2 text-stone-700" }, c.nombre),
+              e("td", { className: "py-2 pr-2 text-amber-700" }, "Obligatorio"),
+              e("td", { className: "py-2 text-stone-700" }, c.horas + " h"));
+          }).concat(record.cursosSolicitados.map(function (c, i) {
+            return e("tr", { key: "s" + i, className: "border-b border-stone-100" },
+              e("td", { className: "py-2 pr-2 text-stone-700" }, c.nombre),
+              e("td", { className: "py-2 pr-2 text-teal-700" }, "Optativo"),
+              e("td", { className: "py-2 text-stone-700" }, c.horas + " h"));
+          }))
+        ),
+        e("tfoot", null, e("tr", null,
+          e("td", { className: "pt-2 text-right font-semibold text-stone-600", colSpan: 2 }, "Total"),
+          e("td", { className: "pt-2 font-semibold text-stone-800" }, record.totalHorasSolicitud + " h")))
+      ),
+      e("div", { className: "mb-8 print:hidden" },
+        e(FieldLabel, null, "Nombre del jefe inmediato (para el recuadro de firma)"),
+        e("input", { value: jefeInmediato, onChange: function (ev) { setJefeInmediato(ev.target.value); },
+          placeholder: "Nombre completo del jefe inmediato",
+          className: "w-full sm:w-1/2 border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-700" })),
+      e("h3", { className: "text-xs font-semibold uppercase tracking-wide text-stone-500 mb-4 mt-8" }, "Autorizacion"),
+      e("div", { className: "grid sm:grid-cols-2 gap-8 mt-10" },
+        e("div", { className: "text-center" },
+          e("div", { className: "border-t border-stone-400 pt-2" },
+            e("div", { className: "text-sm text-stone-800" }, record.nombre),
+            e("div", { className: "text-xs text-stone-500 flex items-center justify-center gap-1 mt-1" },
+              e(PenIcon, { className: "w-3 h-3" }), " Nombre y firma del empleado solicitante"))),
+        e("div", { className: "text-center" },
+          e("div", { className: "border-t border-stone-400 pt-2" },
+            e("div", { className: "text-sm text-stone-800" }, jefeInmediato || "\u00A0"),
+            e("div", { className: "text-xs text-stone-500 flex items-center justify-center gap-1 mt-1" },
+              e(PenIcon, { className: "w-3 h-3" }), " Nombre y firma del jefe inmediato (autoriza)")))
+      )
+    ),
+    e("div", { className: "flex gap-3 print:hidden" },
+      e("button", { onClick: function () { window.print(); },
+        className: "flex-1 bg-teal-800 hover:bg-teal-900 text-white text-sm font-medium py-2.5 rounded transition-colors flex items-center justify-center gap-2" },
+        e(PrinterIcon, { className: "w-4 h-4"
