@@ -138,7 +138,7 @@ var ICONS = {
 };
 
 /* ============================================================
-   DATOS BASE (CATÁLOGO MULTI-PLATAFORMA Y PADRÓN)
+   DATOS BASE (CATÁLOGO MULTI-PLATAFORMA Y PLANTILLA)
    ============================================================ */
 var EMPLEADOS = [
   { curp: "GARM850101HDFRZL05", numEmpleado: "10234", nombre: "Maria Elena Garcia Ruiz", puesto: "Jefa de Departamento", nivel: "OA1", area: "Direccion General de Ordenamiento Territorial y Agrario" },
@@ -148,16 +148,16 @@ var EMPLEADOS = [
 
 var CURSOS_2026 = {
   10234: [
-    { nombre: "Etica Publica y Prevencion de Conflictos de Interes", horas: 10, periodo: "Marzo 2026" },
-    { nombre: "Ordenamiento Territorial: Marco Normativo", horas: 20, periodo: "Julio 2026" }
+    { nombre: "Ética, práctica y mística en el servicio público", horas: 10, periodo: "Marzo 2026" },
+    { nombre: "Introducción a la ciberseguridad", horas: 06, periodo: "Julio 2026" }
   ],
   10567: [{ nombre: "Igualdad de Genero y No Discriminacion", horas: 8, periodo: "Febrero 2026" }],
   10891: []
 };
 
 var OBLIGATORIOS_2027 = [
-  { nombre: "Codigo de Etica y Reglas de Integridad 2027", horas: 8, modalidad: "En linea", plataforma: "Campus Virtual SEDATU" },
-  { nombre: "Proteccion de Datos Personales en la APF", horas: 8, modalidad: "En linea", plataforma: "Campus INAI" }
+  { nombre: "Obligatorio 1", horas: 8, modalidad: "En linea", plataforma: "Escuela de Buen Gobierno" },
+  { nombre: "Formación en Igualdad Sustantiva y derechos de las mujeres", horas: 10, modalidad: "En linea", plataforma: "Escuela de Buen Gobierno" }
 ];
 
 var CATALOGO_2027 = [
@@ -499,7 +499,7 @@ function renderSolicitud() {
   return (
     '<div class="card">' +
       '<div class="card-title">' + ICONS.shield + ' Cursos Obligatorios Institucionales 2027</div>' +
-      '<p class="card-subtitle">Precargados por lineamiento normativo para la totalidad de la plantilla (' + totalOblig + ' horas acumuladas).</p>' +
+      '<p class="card-subtitle">Precargados por lineamiento normativo (' + totalOblig + ' horas acumuladas).</p>' +
       '<div class="grid2">' + obligHtml + '</div>' +
     '</div>' +
     '<div class="card">' +
@@ -511,7 +511,7 @@ function renderSolicitud() {
     '</div>' +
     '<div class="card">' +
       '<div class="card-title" style="font-size:14px;">' + ICONS.info + ' Normatividad y Lineamientos</div>' +
-      '<div class="norm-box">De conformidad con las disposiciones del Programa Anual de Capacitacion y Profesionalizacion de la SEDATU, el personal podra acreditar las horas establecidas mediante las plataformas oficiales autorizadas (PROCADIST, MexicoX, Capacitate para el Empleo, Campus Virtual SEDATU). Toda solicitud remitida queda sujeta a la validacion de la Direccion General correspondiente.</div>' +
+      '<div class="norm-box">De conformidad con las disposiciones del Programa Anual de Capacitacion y Profesionalizacion de la SEDATU, el personal podra acreditar las horas establecidas mediante las plataformas oficiales autorizadas. Toda solicitud remitida queda sujeta a la validacion de la DGCHDO.</div>' +
     '</div>' +
     '<div class="total-bar mt-4 mb-4">' +
       '<span>Total acumulado de capacitacion:</span>' +
@@ -582,7 +582,7 @@ function render() {
       renderStepper(stepCurrent) +
       pageHtml +
     '</div>' +
-    '<div class="footer no-print">SEDATU &middot; Direccion General de Desarrollo Humano y Organizacion &middot; Maqueta Funcional</div>';
+    '<div class="footer no-print">SEDATU &middot; Direccion General de Capital Humano y Desarrollo Organizacional &middot; Maqueta Funcional</div>';
 
   attachListeners();
 }
