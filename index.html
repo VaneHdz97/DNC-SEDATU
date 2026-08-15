@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SEDATU - Sistema de Deteccion de Necesidades de Capacitacion 2027</title>
+<title>SEDATU - Sistema de Detección de Necesidades de Capacitación 2027</title>
 <style>
   :root{
     --teal-900:#0f3d3a; --teal-800:#12524d; --teal-700:#166a63;
@@ -23,12 +23,12 @@
   #root{min-height:100%; display:flex; flex-direction:column;}
   .header{background:var(--teal-900); color:#e7f3f1;}
   .header-stripe{height:6px; width:100%; background:linear-gradient(to right, var(--amber-600), var(--teal-700), var(--amber-600));}
-  .header-inner{max-width:760px; margin:0 auto; padding:16px 24px; display:flex; align-items:center; justify-content:space-between;}
+  .header-inner{max-width:860px; margin:0 auto; padding:16px 24px; display:flex; align-items:center; justify-content:space-between;}
   .header-eyebrow{font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:#9fc9c3;}
   .header-title{font-weight:600; font-size:18px; letter-spacing:-.01em; line-height:1.2;}
   .btn-ghost{font-size:12px; padding:6px 12px; border-radius:6px; border:1px solid var(--teal-700); background:transparent; color:#e7f3f1; cursor:pointer;}
   .btn-ghost:hover{background:var(--teal-800);}
-  .container{max-width:760px; width:100%; margin:0 auto; padding:32px 24px; flex:1;}
+  .container{max-width:860px; width:100%; margin:0 auto; padding:32px 24px; flex:1;}
   .footer{text-align:center; font-size:12px; color:var(--stone-400); padding:24px 0;}
   .stepper{display:flex; align-items:center; width:100%; margin-bottom:8px;}
   .step{display:flex; align-items:center; gap:8px; flex:1;}
@@ -70,6 +70,9 @@
   .grid2{display:grid; grid-template-columns:1fr; gap:16px;}
   @media (min-width:600px){.grid2{grid-template-columns:1fr 1fr;}}
   .col-span-2{grid-column:1 / -1;}
+  .course-selection-box{background:var(--stone-50); border:1px solid var(--stone-200); border-radius:8px; padding:16px; margin-bottom:16px;}
+  .course-selection-title{font-size:13px; font-weight:700; color:var(--teal-900); margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;}
+  .info-tag-box{background:#fff; border:1px solid var(--stone-200); border-left:3px solid var(--teal-700); padding:10px 12px; border-radius:4px; margin-top:12px; font-size:13px;}
   .test-accounts{margin-top:24px; border-top:1px solid var(--stone-100); padding-top:16px;}
   .test-accounts-title{font-size:12px; color:var(--stone-400); margin-bottom:8px;}
   .test-accounts ul{list-style:none; margin:0; padding:0; font-size:12px; color:var(--stone-500); display:flex; flex-direction:column; gap:4px;}
@@ -113,7 +116,7 @@
 "use strict";
 
 /* ============================================================
-   ICONOS SVG en linea (sin dependencias externas)
+   ICONOS SVG
    ============================================================ */
 function icon(paths) {
   return '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + paths + '</svg>';
@@ -135,13 +138,14 @@ var ICONS = {
 };
 
 /* ============================================================
-   DATOS DE PRUEBA (MOCK)
+   DATOS BASE (CATÁLOGO MULTI-PLATAFORMA Y PADRÓN)
    ============================================================ */
 var EMPLEADOS = [
   { curp: "GARM850101HDFRZL05", numEmpleado: "10234", nombre: "Maria Elena Garcia Ruiz", puesto: "Jefa de Departamento", nivel: "OA1", area: "Direccion General de Ordenamiento Territorial y Agrario" },
   { curp: "LOHJ900312HDFPRN08", numEmpleado: "10567", nombre: "Juan Carlos Lopez Hernandez", puesto: "Subdirector de Area", nivel: "NA1", area: "Direccion General de Desarrollo Urbano, Suelo y Vivienda" },
   { curp: "RAMS930725MDFYRN02", numEmpleado: "10891", nombre: "Sofia Ramirez Mendoza", puesto: "Enlace de Alto Nivel de Responsabilidad", nivel: "OB1", area: "Direccion General de Administracion y Finanzas" }
 ];
+
 var CURSOS_2026 = {
   10234: [
     { nombre: "Etica Publica y Prevencion de Conflictos de Interes", horas: 10, periodo: "Marzo 2026" },
@@ -150,23 +154,88 @@ var CURSOS_2026 = {
   10567: [{ nombre: "Igualdad de Genero y No Discriminacion", horas: 8, periodo: "Febrero 2026" }],
   10891: []
 };
+
 var OBLIGATORIOS_2027 = [
-  { nombre: "Codigo de Etica y Reglas de Integridad 2027", horas: 8, modalidad: "En linea" },
-  { nombre: "Proteccion de Datos Personales en la APF", horas: 8, modalidad: "En linea" }
+  { nombre: "Codigo de Etica y Reglas de Integridad 2027", horas: 8, modalidad: "En linea", plataforma: "Campus Virtual SEDATU" },
+  { nombre: "Proteccion de Datos Personales en la APF", horas: 8, modalidad: "En linea", plataforma: "Campus INAI" }
 ];
+
 var CATALOGO_2027 = [
-  { id: 1, nombre: "Ordenamiento Territorial y Uso de Suelo", horas: 20, modalidad: "Presencial" },
-  { id: 2, nombre: "Redaccion de Documentos Oficiales", horas: 15, modalidad: "En linea" },
-  { id: 3, nombre: "Excel Intermedio para la Administracion Publica", horas: 20, modalidad: "En linea" },
-  { id: 4, nombre: "Liderazgo y Trabajo en Equipo", horas: 10, modalidad: "Presencial" },
-  { id: 5, nombre: "Igualdad de Genero y No Discriminacion", horas: 8, modalidad: "En linea" },
-  { id: 6, nombre: "Marco Juridico de la Administracion Publica Federal", horas: 24, modalidad: "En linea" },
-  { id: 7, nombre: "Atencion Ciudadana y Servicio Publico", horas: 16, modalidad: "Presencial" },
-  { id: 8, nombre: "Gestion de Proyectos de Vivienda", horas: 30, modalidad: "Presencial" },
-  { id: 9, nombre: "Etica Publica y Prevencion de Conflictos de Interes", horas: 10, modalidad: "En linea" },
-  { id: 10, nombre: "Comunicacion Efectiva y Redaccion Institucional", horas: 12, modalidad: "En linea" }
+  {
+    id: 1,
+    categoria: "Habilidades Blandas",
+    nombre: "Trabajo en Equipo y Colaboracion",
+    plataforma: "PROCADIST",
+    necesidad: "Fomentar la coordinacion interinstitucional y resolucion constructiva de acuerdos grupales.",
+    horas: 16,
+    modalidad: "En linea"
+  },
+  {
+    id: 2,
+    categoria: "Habilidades Blandas",
+    nombre: "Trabajo en Equipo y Colaboracion",
+    plataforma: "Capacitate para el Empleo (Fundacion Carlos Slim)",
+    necesidad: "Fortalecer habilidades operativas, distribucion eficiente de tareas y liderazgo sinergico.",
+    horas: 20,
+    modalidad: "En linea"
+  },
+  {
+    id: 3,
+    categoria: "Habilidades Blandas",
+    nombre: "Comunicacion Asertiva y Negociacion",
+    plataforma: "PROCADIST",
+    necesidad: "Mejorar la gestion de acuerdos y comunicacion clara con representaciones agrarias y comites.",
+    horas: 15,
+    modalidad: "En linea"
+  },
+  {
+    id: 4,
+    categoria: "Tecnologia y Productividad",
+    nombre: "Analisis de Datos con Microsoft Excel",
+    plataforma: "Capacitate para el Empleo (Fundacion Carlos Slim)",
+    necesidad: "Depuracion masiva de bases registrales y cruces automaticos de beneficiarios.",
+    horas: 25,
+    modalidad: "En linea"
+  },
+  {
+    id: 5,
+    categoria: "Tecnologia y Productividad",
+    nombre: "Analisis de Datos con Microsoft Excel",
+    plataforma: "MexicoX",
+    necesidad: "Gestion cuantitativa de indicadores de seguimiento territorial y matrices analiticas.",
+    horas: 30,
+    modalidad: "En linea"
+  },
+  {
+    id: 6,
+    categoria: "Normatividad y Gestion Publica",
+    nombre: "Marco Juridico del Ordenamiento Territorial",
+    plataforma: "Campus SEDATU / INDESOL",
+    necesidad: "Actualizacion de criterios normativos para la regularizacion de asentamientos humanos.",
+    horas: 24,
+    modalidad: "Mixta"
+  },
+  {
+    id: 7,
+    categoria: "Normatividad y Gestion Publica",
+    nombre: "Redaccion de Documentos Oficiales y Archivo",
+    plataforma: "PROCADIST",
+    necesidad: "Estandarizar notas informativas, oficios de respuesta y dictamenes tecnicos sectoriales.",
+    horas: 20,
+    modalidad: "En linea"
+  },
+  {
+    id: 8,
+    categoria: "Derechos Humanos y Genero",
+    nombre: "Inclusion, No Discriminacion e Igualdad Sustantiva",
+    plataforma: "Campus CONAPRED",
+    necesidad: "Garantizar la transversalizacion de perspectiva de derechos y no discriminacion en proyectos urbanos.",
+    horas: 20,
+    modalidad: "En linea"
+  }
 ];
-var HORAS_META_OPTATIVAS = 40;
+
+var HORAS_MINIMAS_REQUERIDAS = 40;
 
 /* ============================================================
    ESTADO
@@ -177,8 +246,17 @@ var state = {
   numEmpleado: "",
   loginError: "",
   user: null,
-  opt1: "",
-  opt2: "",
+  
+  // Selecciones Optativo 1
+  c1_cat: "",
+  c1_nom: "",
+  c1_id: "",
+
+  // Selecciones Optativo 2
+  c2_cat: "",
+  c2_nom: "",
+  c2_id: "",
+
   jefeInmediato: "",
   record: null
 };
@@ -189,17 +267,40 @@ function esc(s) {
   });
 }
 
-function cursos2026For(user) {
+function getCursosTomados2026(user) {
   return user ? (CURSOS_2026[user.numEmpleado] || []) : [];
 }
-function disponiblesFor(user) {
+
+function getDisponibles2027(user) {
   var tomados = {};
-  cursos2026For(user).forEach(function (c) { tomados[c.nombre] = true; });
+  getCursosTomados2026(user).forEach(function (c) { tomados[c.nombre] = true; });
   return CATALOGO_2027.filter(function (c) { return !tomados[c.nombre]; });
 }
 
+function getCategoriasDisponibles(disponibles) {
+  var cats = {};
+  disponibles.forEach(function (c) { cats[c.categoria] = true; });
+  return Object.keys(cats).sort();
+}
+
+function getCursosPorCategoria(disponibles, cat) {
+  if (!cat) return [];
+  var nombres = {};
+  disponibles.filter(function (c) { return c.categoria === cat; }).forEach(function (c) {
+    nombres[c.nombre] = true;
+  });
+  return Object.keys(nombres).sort();
+}
+
+function getPlataformasPorCurso(disponibles, cat, nombre) {
+  if (!cat || !nombre) return [];
+  return disponibles.filter(function (c) {
+    return c.categoria === cat && c.nombre === nombre;
+  });
+}
+
 /* ============================================================
-   RENDER: HEADER Y STEPPER
+   RENDER: HEADER & STEPPER
    ============================================================ */
 function renderHeader() {
   var logged = !!state.user;
@@ -208,7 +309,7 @@ function renderHeader() {
       '<div class="header-stripe"></div>' +
       '<div class="header-inner">' +
         '<div>' +
-          '<div class="header-eyebrow">SEDATU &middot; Prototipo</div>' +
+          '<div class="header-eyebrow">SEDATU &middot; DNC Institucional</div>' +
           '<div class="header-title">Sistema de Deteccion de Necesidades de Capacitacion 2027</div>' +
         '</div>' +
         (logged ? '<button class="btn-ghost" data-action="logout">' + ICONS.logout + ' Salir</button>' : '') +
@@ -245,7 +346,7 @@ function renderLogin() {
   }).join("");
 
   return (
-    '<div class="card" style="max-width:420px;margin:24px auto 0;">' +
+    '<div class="card" style="max-width:440px;margin:24px auto 0;">' +
       '<div class="card-title">' + ICONS.login + ' Acceso al sistema</div>' +
       '<p class="card-subtitle">Ingresa con tu CURP y tu numero de empleado como contrasena.</p>' +
       '<form id="login-form">' +
@@ -267,7 +368,7 @@ function renderLogin() {
         '<button type="submit" class="btn btn-primary">Iniciar sesion</button>' +
       '</form>' +
       '<div class="test-accounts">' +
-        '<div class="test-accounts-title">Cuentas de prueba (maqueta):</div>' +
+        '<div class="test-accounts-title">Cuentas de prueba (maqueta institucional):</div>' +
         '<ul>' + accountsHtml + '</ul>' +
       '</div>' +
     '</div>'
@@ -276,12 +377,12 @@ function renderLogin() {
 
 function renderPerfil() {
   var user = state.user;
-  var cursos = cursos2026For(user);
+  var cursos = getCursosTomados2026(user);
   var tablaHtml;
   if (cursos.length === 0) {
     tablaHtml = '<div class="empty-box">No se registra capacitacion tomada durante 2026.</div>';
   } else {
-    tablaHtml = '<table><thead><tr><th>Curso</th><th>Horas</th><th>Periodo</th></tr></thead><tbody>' +
+    tablaHtml = '<table><thead><tr><th>Curso tomado</th><th>Horas</th><th>Periodo</th></tr></thead><tbody>' +
       cursos.map(function (c) {
         return '<tr><td>' + esc(c.nombre) + '</td><td>' + c.horas + ' h</td><td style="color:var(--stone-500);">' + esc(c.periodo) + '</td></tr>';
       }).join("") + '</tbody></table>';
@@ -289,7 +390,7 @@ function renderPerfil() {
 
   return (
     '<div class="card">' +
-      '<div class="card-title">' + ICONS.user + ' Perfil de usuario</div>' +
+      '<div class="card-title">' + ICONS.user + ' Perfil del Servidor Publico</div>' +
       '<div class="grid2 mt-4">' +
         '<div><div class="field-label">Nombre</div><div class="field-value">' + esc(user.nombre) + '</div></div>' +
         '<div><div class="field-label">CURP</div><div class="field-value">' + esc(user.curp) + '</div></div>' +
@@ -299,89 +400,143 @@ function renderPerfil() {
       '</div>' +
     '</div>' +
     '<div class="card">' +
-      '<div class="card-title">' + ICONS.book + ' Cursos tomados en 2026</div>' +
-      '<p class="card-subtitle">Revisa este historial antes de solicitar tus cursos 2027 para no repetir capacitacion ya tomada.</p>' +
+      '<div class="card-title">' + ICONS.book + ' Historial de Capacitacion 2026</div>' +
+      '<p class="card-subtitle">Verifica los cursos acreditados en el ciclo inmediato anterior. Los temas tomados se excluyen automaticamente de las opciones 2027.</p>' +
       tablaHtml +
     '</div>' +
     '<button class="btn btn-primary mt-4" data-action="go-solicitud">Confirmar datos y continuar ' + ICONS.chevron + '</button>'
   );
 }
 
+function renderCourseSelector(index, selectedCat, selectedNom, selectedId, otherId, disponibles) {
+  var categories = getCategoriasDisponibles(disponibles);
+  var names = getCursosPorCategoria(disponibles, selectedCat);
+  var platforms = getPlataformasPorCurso(disponibles, selectedCat, selectedNom).filter(function (c) {
+    return String(c.id) !== String(otherId);
+  });
+
+  var selectedCourse = disponibles.filter(function (c) { return String(c.id) === String(selectedId); })[0];
+
+  var catOptions = '<option value="">-- Selecciona una Categoria --</option>' + categories.map(function (cat) {
+    return '<option value="' + esc(cat) + '" ' + (cat === selectedCat ? 'selected' : '') + '>' + esc(cat) + '</option>';
+  }).join("");
+
+  var nomOptions = '<option value="">-- Selecciona un Curso --</option>' + names.map(function (n) {
+    return '<option value="' + esc(n) + '" ' + (n === selectedNom ? 'selected' : '') + '>' + esc(n) + '</option>';
+  }).join("");
+
+  var platOptions = '<option value="">-- Selecciona Plataforma / Modalidad --</option>' + platforms.map(function (p) {
+    return '<option value="' + p.id + '" ' + (String(p.id) === String(selectedId) ? 'selected' : '') + '>' + esc(p.plataforma) + ' (' + p.horas + ' h)</option>';
+  }).join("");
+
+  var detailBox = '';
+  if (selectedCourse) {
+    detailBox = 
+      '<div class="info-tag-box">' +
+        '<div><strong>Necesidad institucional que atiende:</strong></div>' +
+        '<div style="color:var(--stone-600);margin-top:2px;">' + esc(selectedCourse.necesidad) + '</div>' +
+        '<div style="margin-top:6px;display:flex;gap:12px;font-size:12px;">' +
+          '<span><strong>Horas acreditadas:</strong> ' + selectedCourse.horas + ' h</span>' +
+          '<span><strong>Modalidad:</strong> ' + esc(selectedCourse.modalidad) + '</span>' +
+        '</div>' +
+      '</div>';
+  }
+
+  return (
+    '<div class="course-selection-box">' +
+      '<div class="course-selection-title">' +
+        '<span>Curso Optativo ' + index + '</span>' +
+        (selectedCourse ? '<span class="badge badge-ok">' + selectedCourse.horas + ' horas</span>' : '<span class="badge badge-neutral">Pendiente</span>') +
+      '</div>' +
+      '<div class="grid2">' +
+        '<div>' +
+          '<div class="field-label">1. Categoria</div>' +
+          '<select class="cat-select" data-slot="' + index + '">' + catOptions + '</select>' +
+        '</div>' +
+        '<div>' +
+          '<div class="field-label">2. Nombre del Curso</div>' +
+          '<select class="nom-select" data-slot="' + index + '" ' + (!selectedCat ? 'disabled' : '') + '>' + nomOptions + '</select>' +
+        '</div>' +
+        '<div class="col-span-2">' +
+          '<div class="field-label">3. Plataforma de Imparticion</div>' +
+          '<select class="id-select" data-slot="' + index + '" ' + (!selectedNom ? 'disabled' : '') + '>' + platOptions + '</select>' +
+        '</div>' +
+      '</div>' +
+      detailBox +
+    '</div>'
+  );
+}
+
 function renderSolicitud() {
   var user = state.user;
-  var disponibles = disponiblesFor(user);
-  var cursoOpt1 = disponibles.filter(function (c) { return String(c.id) === state.opt1; })[0];
-  var cursoOpt2 = disponibles.filter(function (c) { return String(c.id) === state.opt2; })[0];
+  var disponibles = getDisponibles2027(user);
+
+  var cursoOpt1 = disponibles.filter(function (c) { return String(c.id) === String(state.c1_id); })[0];
+  var cursoOpt2 = disponibles.filter(function (c) { return String(c.id) === String(state.c2_id); })[0];
+
   var h1 = cursoOpt1 ? cursoOpt1.horas : 0;
   var h2 = cursoOpt2 ? cursoOpt2.horas : 0;
   var totalOpt = h1 + h2;
   var totalOblig = OBLIGATORIOS_2027.reduce(function (a, c) { return a + c.horas; }, 0);
   var totalGeneral = totalOblig + totalOpt;
-  var puedeEnviar = state.opt1 && state.opt2 && state.opt1 !== state.opt2 && totalOpt === HORAS_META_OPTATIVAS;
+
+  var cumpleMinimo = totalGeneral >= HORAS_MINIMAS_REQUERIDAS;
+  var puedeEnviar = state.c1_id && state.c2_id && state.c1_id !== state.c2_id && cumpleMinimo;
 
   var obligHtml = OBLIGATORIOS_2027.map(function (c) {
     return '<div class="oblig-box"><div class="oblig-tag">Obligatorio</div><div class="field-value">' + esc(c.nombre) +
-      '</div><div style="font-size:12px;color:var(--stone-500);margin-top:4px;">' + c.horas + ' h &middot; ' + esc(c.modalidad) + '</div></div>';
+      '</div><div style="font-size:12px;color:var(--stone-500);margin-top:4px;">' + c.horas + ' h &middot; ' + esc(c.modalidad) + ' (' + esc(c.plataforma) + ')</div></div>';
   }).join("");
 
-  function optionsHtml(excludeId) {
-    return '<option value="">Selecciona un curso...</option>' + disponibles
-      .filter(function (c) { return String(c.id) !== excludeId; })
-      .map(function (c) { return '<option value="' + c.id + '">' + esc(c.nombre) + ' (' + c.horas + ' h)</option>'; })
-      .join("");
-  }
-
   var warnHtml = "";
-  if (state.opt1 && state.opt2 && totalOpt !== HORAS_META_OPTATIVAS) {
-    var msg = totalOpt < HORAS_META_OPTATIVAS
-      ? ("Faltan " + (HORAS_META_OPTATIVAS - totalOpt) + " horas para completar el total requerido.")
-      : ("Te excedes por " + (totalOpt - HORAS_META_OPTATIVAS) + " horas del total requerido.");
-    warnHtml = '<div class="alert alert-warn mt-4">' + ICONS.alert + '<span>' + msg + '</span></div>';
+  if (!cumpleMinimo) {
+    var faltantes = HORAS_MINIMAS_REQUERIDAS - totalGeneral;
+    warnHtml = '<div class="alert alert-warn mt-4">' + ICONS.alert + '<span>El programa requiere un <strong>minimo de ' + HORAS_MINIMAS_REQUERIDAS + ' horas</strong> (obligatorios + optativos). Te faltan ' + faltantes + ' horas por cubrir.</span></div>';
+  } else {
+    warnHtml = '<div class="alert alert-ok mt-4">' + ICONS.check + '<span>Cumples con el requerimiento de horas de capacitacion (' + totalGeneral + ' h totales).</span></div>';
   }
 
   return (
     '<div class="card">' +
-      '<div class="card-title">' + ICONS.shield + ' Cursos obligatorios 2027</div>' +
-      '<p class="card-subtitle">Precargados para todo el personal, no requieren seleccion.</p>' +
+      '<div class="card-title">' + ICONS.shield + ' Cursos Obligatorios Institucionales 2027</div>' +
+      '<p class="card-subtitle">Precargados por lineamiento normativo para la totalidad de la plantilla (' + totalOblig + ' horas acumuladas).</p>' +
       '<div class="grid2">' + obligHtml + '</div>' +
     '</div>' +
     '<div class="card">' +
-      '<div style="display:flex;align-items:center;justify-content:space-between;" class="mb-1">' +
-        '<div class="card-title" style="margin:0;">Cursos optativos (2027)</div>' +
-        '<span class="badge ' + (totalOpt === HORAS_META_OPTATIVAS ? "badge-ok" : "badge-neutral") + '">' + totalOpt + ' / ' + HORAS_META_OPTATIVAS + ' h</span>' +
-      '</div>' +
-      '<p class="card-subtitle">Los cursos ya tomados en 2026 no aparecen en las listas. Selecciona dos cursos cuya suma de horas sea exactamente ' + HORAS_META_OPTATIVAS + '.</p>' +
-      '<div class="grid2">' +
-        '<div><div class="field-label">Curso optativo 1</div><select id="opt1-select">' + optionsHtml(state.opt2) + '</select></div>' +
-        '<div><div class="field-label">Curso optativo 2</div><select id="opt2-select">' + optionsHtml(state.opt1) + '</select></div>' +
-      '</div>' +
+      '<div class="card-title">' + ICONS.book + ' Seleccion de Cursos Optativos</div>' +
+      '<p class="card-subtitle">Filtra por categoria y selecciona el curso y plataforma que responda a tus funciones. Ambos componentes (obligatorios y optativos) deben sumar al menos ' + HORAS_MINIMAS_REQUERIDAS + ' horas.</p>' +
+      renderCourseSelector(1, state.c1_cat, state.c1_nom, state.c1_id, state.c2_id, disponibles) +
+      renderCourseSelector(2, state.c2_cat, state.c2_nom, state.c2_id, state.c1_id, disponibles) +
       warnHtml +
     '</div>' +
     '<div class="card">' +
-      '<div class="card-title" style="font-size:14px;">' + ICONS.info + ' Normatividad aplicable</div>' +
-      '<div class="norm-box">[Espacio reservado para citar el fundamento legal vigente de la Deteccion de Necesidades de Capacitacion &mdash; por ejemplo, lineamientos internos de la Direccion General de Recursos Humanos, el Programa Anual de Capacitacion de SEDATU, y/o la normatividad del Servicio Profesional de Carrera que resulte aplicable. Este texto es un marcador de posicion; su contenido definitivo debe ser validado por el area juridica/normativa correspondiente antes de publicarse.]</div>' +
+      '<div class="card-title" style="font-size:14px;">' + ICONS.info + ' Normatividad y Lineamientos</div>' +
+      '<div class="norm-box">De conformidad con las disposiciones del Programa Anual de Capacitacion y Profesionalizacion de la SEDATU, el personal podra acreditar las horas establecidas mediante las plataformas oficiales autorizadas (PROCADIST, MexicoX, Capacitate para el Empleo, Campus Virtual SEDATU). Toda solicitud remitida queda sujeta a la validacion de la Direccion General correspondiente.</div>' +
     '</div>' +
-    '<div class="total-bar mt-4 mb-4">Total de la solicitud (obligatorios + optativos): <strong style="color:var(--stone-800);">' + totalGeneral + ' h</strong></div>' +
-    '<button class="btn btn-primary" id="submit-btn" ' + (puedeEnviar ? "" : "disabled") + '>' + ICONS.clip + ' Enviar solicitud de capacitacion 2027</button>'
+    '<div class="total-bar mt-4 mb-4">' +
+      '<span>Total acumulado de capacitacion:</span>' +
+      '<strong style="color:var(--teal-900);font-size:16px;">' + totalGeneral + ' horas ' + (cumpleMinimo ? '(Cumple minimo)' : '') + '</strong>' +
+    '</div>' +
+    '<button class="btn btn-primary" id="submit-btn" ' + (puedeEnviar ? "" : "disabled") + '>' + ICONS.clip + ' Registrar solicitud de capacitacion 2027</button>'
   );
 }
 
 function renderConfirmacion() {
   var record = state.record;
   var cursosRows = record.cursosObligatorios.map(function (c) {
-    return '<tr><td>' + esc(c.nombre) + '</td><td style="color:var(--amber-700);">Obligatorio</td><td>' + c.horas + ' h</td></tr>';
+    return '<tr><td>' + esc(c.nombre) + '<div style="font-size:11px;color:var(--stone-500);">' + esc(c.plataforma) + '</div></td><td style="color:var(--amber-700);">Obligatorio</td><td>' + c.horas + ' h</td></tr>';
   }).join("") + record.cursosSolicitados.map(function (c) {
-    return '<tr><td>' + esc(c.nombre) + '</td><td style="color:var(--teal-700);">Optativo</td><td>' + c.horas + ' h</td></tr>';
+    return '<tr><td>' + esc(c.nombre) + '<div style="font-size:11px;color:var(--stone-500);">' + esc(c.plataforma) + ' &bull; <em>' + esc(c.necesidad) + '</em></div></td><td style="color:var(--teal-700);">Optativo</td><td>' + c.horas + ' h</td></tr>';
   }).join("");
 
   return (
-    '<div class="alert alert-ok mb-4 no-print">' + ICONS.check + '<span>Solicitud registrada. Imprime este comprobante para recabar las firmas de autorizacion.</span></div>' +
+    '<div class="alert alert-ok mb-4 no-print">' + ICONS.check + '<span>Solicitud registrada exitosamente. Puedes imprimir o guardar el comprobante en PDF.</span></div>' +
     '<div class="card">' +
       '<div class="doc-header">' +
-        '<div><div class="doc-eyebrow">SEDATU</div><div class="doc-title">Solicitud de Capacitacion &mdash; Ciclo ' + esc(record.cicloCapacitacion) + '</div></div>' +
+        '<div><div class="doc-eyebrow">SEDATU</div><div class="doc-title">Cedula Individual de Deteccion de Necesidades &mdash; Ciclo ' + esc(record.cicloCapacitacion) + '</div></div>' +
         '<div class="doc-meta"><div>Folio: ' + esc(record.numEmpleado) + '-' + esc(record.fechaSolicitud) + '</div><div>Fecha: ' + esc(record.fechaSolicitud) + '</div></div>' +
       '</div>' +
-      '<div class="field-label">Datos del empleado</div>' +
+      '<div class="field-label">Datos del Servidor Publico</div>' +
       '<div class="grid2 mb-6 mt-2">' +
         '<div><span style="color:var(--stone-400);">Nombre: </span>' + esc(record.nombre) + '</div>' +
         '<div><span style="color:var(--stone-400);">CURP: </span>' + esc(record.curp) + '</div>' +
@@ -390,28 +545,28 @@ function renderConfirmacion() {
         '<div><span style="color:var(--stone-400);">Nivel: </span>' + esc(record.nivel) + '</div>' +
         '<div class="col-span-2"><span style="color:var(--stone-400);">Area de adscripcion: </span>' + esc(record.area) + '</div>' +
       '</div>' +
-      '<div class="field-label">Cursos solicitados</div>' +
-      '<table class="mb-2 mt-2"><thead><tr><th>Curso</th><th>Tipo</th><th>Horas</th></tr></thead><tbody>' + cursosRows + '</tbody>' +
-      '<tfoot><tr><td colspan="2" style="text-align:right;font-weight:600;color:var(--stone-600);">Total</td><td style="font-weight:600;">' + record.totalHorasSolicitud + ' h</td></tr></tfoot></table>' +
+      '<div class="field-label">Programa de Capacitacion Seleccionado</div>' +
+      '<table class="mb-2 mt-2"><thead><tr><th>Curso y Plataforma</th><th>Tipo</th><th>Horas</th></tr></thead><tbody>' + cursosRows + '</tbody>' +
+      '<tfoot><tr><td colspan="2" style="text-align:right;font-weight:600;color:var(--stone-600);">Horas Totales Programadas</td><td style="font-weight:700;color:var(--teal-900);">' + record.totalHorasSolicitud + ' h</td></tr></tfoot></table>' +
       '<div class="mb-8 mt-8 no-print">' +
-        '<div class="field-label">Nombre del jefe inmediato (para el recuadro de firma)</div>' +
-        '<input type="text" id="jefe-input" placeholder="Nombre completo del jefe inmediato" style="max-width:340px;" value="' + esc(state.jefeInmediato) + '" />' +
+        '<div class="field-label">Nombre del superior jerarquico inmediato (para autorizacion)</div>' +
+        '<input type="text" id="jefe-input" placeholder="Nombre completo del titular que autoriza" style="max-width:380px;" value="' + esc(state.jefeInmediato) + '" />' +
       '</div>' +
-      '<div class="field-label mt-8">Autorizacion</div>' +
+      '<div class="field-label mt-8">Firmas de Conformidad</div>' +
       '<div class="signature-row">' +
-        '<div class="signature-box"><div class="signature-name">' + esc(record.nombre) + '</div><div class="signature-label">' + ICONS.pen + ' Nombre y firma del empleado solicitante</div></div>' +
-        '<div class="signature-box"><div class="signature-name">' + (esc(state.jefeInmediato) || '&nbsp;') + '</div><div class="signature-label">' + ICONS.pen + ' Nombre y firma del jefe inmediato (autoriza)</div></div>' +
+        '<div class="signature-box"><div class="signature-name">' + esc(record.nombre) + '</div><div class="signature-label">' + ICONS.pen + ' Nombre y firma del servidor publico solicitante</div></div>' +
+        '<div class="signature-box"><div class="signature-name">' + (esc(state.jefeInmediato) || '&nbsp;') + '</div><div class="signature-label">' + ICONS.pen + ' Nombre y firma del superior jerarquico (autoriza)</div></div>' +
       '</div>' +
     '</div>' +
     '<div class="btn-row mt-4 no-print">' +
-      '<button class="btn btn-primary" data-action="print">' + ICONS.printer + ' Imprimir comprobante</button>' +
-      '<button class="btn btn-secondary" data-action="logout">Cerrar sesion</button>' +
+      '<button type="button" class="btn btn-primary" id="btn-print">' + ICONS.printer + ' Imprimir comprobante</button>' +
+      '<button type="button" class="btn btn-secondary" data-action="logout">Finalizar y salir</button>' +
     '</div>'
   );
 }
 
 /* ============================================================
-   RENDER PRINCIPAL
+   RENDER PRINCIPAL Y CONTROLADORES
    ============================================================ */
 function render() {
   var stepCurrent = state.page === "login" ? 1 : state.page === "perfil" ? 2 : state.page === "solicitud" ? 3 : 4;
@@ -427,14 +582,11 @@ function render() {
       renderStepper(stepCurrent) +
       pageHtml +
     '</div>' +
-    '<div class="footer no-print">Maqueta de trabajo &mdash; no usa datos reales del personal. Elaborado para discusion con DGTIC.</div>';
+    '<div class="footer no-print">SEDATU &middot; Direccion General de Desarrollo Humano y Organizacion &middot; Maqueta Funcional</div>';
 
   attachListeners();
 }
 
-/* ============================================================
-   EVENTOS
-   ============================================================ */
 function setState(patch) {
   Object.assign(state, patch);
   render();
@@ -443,6 +595,7 @@ function setState(patch) {
 function attachListeners() {
   var root = document.getElementById("root");
 
+  // Login
   var loginForm = document.getElementById("login-form");
   if (loginForm) {
     loginForm.addEventListener("submit", function (ev) {
@@ -460,41 +613,71 @@ function attachListeners() {
     document.getElementById("numempleado-input").addEventListener("input", function (e) { state.numEmpleado = e.target.value; });
   }
 
-  var opt1Select = document.getElementById("opt1-select");
-  if (opt1Select) {
-    opt1Select.value = state.opt1;
-    opt1Select.addEventListener("change", function (e) { setState({ opt1: e.target.value }); });
-  }
-  var opt2Select = document.getElementById("opt2-select");
-  if (opt2Select) {
-    opt2Select.value = state.opt2;
-    opt2Select.addEventListener("change", function (e) { setState({ opt2: e.target.value }); });
-  }
+  // Selectores Cascada
+  var catSelects = document.querySelectorAll(".cat-select");
+  catSelects.forEach(function (sel) {
+    sel.addEventListener("change", function (e) {
+      var slot = e.target.getAttribute("data-slot");
+      if (slot === "1") {
+        setState({ c1_cat: e.target.value, c1_nom: "", c1_id: "" });
+      } else {
+        setState({ c2_cat: e.target.value, c2_nom: "", c2_id: "" });
+      }
+    });
+  });
 
+  var nomSelects = document.querySelectorAll(".nom-select");
+  nomSelects.forEach(function (sel) {
+    sel.addEventListener("change", function (e) {
+      var slot = e.target.getAttribute("data-slot");
+      if (slot === "1") {
+        setState({ c1_nom: e.target.value, c1_id: "" });
+      } else {
+        setState({ c2_nom: e.target.value, c2_id: "" });
+      }
+    });
+  });
+
+  var idSelects = document.querySelectorAll(".id-select");
+  idSelects.forEach(function (sel) {
+    sel.addEventListener("change", function (e) {
+      var slot = e.target.getAttribute("data-slot");
+      if (slot === "1") {
+        setState({ c1_id: e.target.value });
+      } else {
+        setState({ c2_id: e.target.value });
+      }
+    });
+  });
+
+  // Envío Solicitud
   var submitBtn = document.getElementById("submit-btn");
   if (submitBtn) {
     submitBtn.addEventListener("click", function () {
-      var disponibles = disponiblesFor(state.user);
-      var cursoOpt1 = disponibles.filter(function (c) { return String(c.id) === state.opt1; })[0];
-      var cursoOpt2 = disponibles.filter(function (c) { return String(c.id) === state.opt2; })[0];
+      var disponibles = getDisponibles2027(state.user);
+      var c1 = disponibles.filter(function (c) { return String(c.id) === String(state.c1_id); })[0];
+      var c2 = disponibles.filter(function (c) { return String(c.id) === String(state.c2_id); })[0];
       var totalOblig = OBLIGATORIOS_2027.reduce(function (a, c) { return a + c.horas; }, 0);
+
       var record = {
         cicloCapacitacion: "2027",
-        numEmpleado: state.user.numEmpleado, curp: state.user.curp, nombre: state.user.nombre,
-        puesto: state.user.puesto, nivel: state.user.nivel, area: state.user.area,
+        numEmpleado: state.user.numEmpleado,
+        curp: state.user.curp,
+        nombre: state.user.nombre,
+        puesto: state.user.puesto,
+        nivel: state.user.nivel,
+        area: state.user.area,
         cursosObligatorios: OBLIGATORIOS_2027,
-        cursosSolicitados: [
-          { nombre: cursoOpt1.nombre, horas: cursoOpt1.horas, modalidad: cursoOpt1.modalidad },
-          { nombre: cursoOpt2.nombre, horas: cursoOpt2.horas, modalidad: cursoOpt2.modalidad }
-        ],
-        totalHorasSolicitud: totalOblig + cursoOpt1.horas + cursoOpt2.horas,
+        cursosSolicitados: [c1, c2],
+        totalHorasSolicitud: totalOblig + c1.horas + c2.horas,
         fechaSolicitud: new Date().toISOString().slice(0, 10),
-        estado: "Pendiente de validacion"
+        estado: "Registrada"
       };
       setState({ record: record, page: "confirmacion" });
     });
   }
 
+  // Nombre de Jefe
   var jefeInput = document.getElementById("jefe-input");
   if (jefeInput) {
     jefeInput.addEventListener("input", function (e) {
@@ -504,16 +687,32 @@ function attachListeners() {
     });
   }
 
+  // Impresión Segura sin bucle de recarga
+  var printBtn = document.getElementById("btn-print");
+  if (printBtn) {
+    printBtn.addEventListener("click", function (ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      setTimeout(function () {
+        window.print();
+      }, 50);
+    });
+  }
+
+  // Botones de acción general
   root.addEventListener("click", function (ev) {
     var el = ev.target.closest("[data-action]");
     if (!el) return;
     var action = el.getAttribute("data-action");
     if (action === "logout") {
-      setState({ user: null, curp: "", numEmpleado: "", loginError: "", opt1: "", opt2: "", jefeInmediato: "", record: null, page: "login" });
+      setState({
+        user: null, curp: "", numEmpleado: "", loginError: "",
+        c1_cat: "", c1_nom: "", c1_id: "",
+        c2_cat: "", c2_nom: "", c2_id: "",
+        jefeInmediato: "", record: null, page: "login"
+      });
     } else if (action === "go-solicitud") {
       setState({ page: "solicitud" });
-    } else if (action === "print") {
-      window.print();
     } else if (action === "fill-account") {
       setState({ curp: el.getAttribute("data-curp"), numEmpleado: el.getAttribute("data-num"), loginError: "" });
     }
