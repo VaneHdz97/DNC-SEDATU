@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SEDATU - Sistema de Detección de Necesidades de Capacitación 2027</title>
+<title>SEDATU - Detección de Necesidades de Capacitación 2027</title>
 <style>
   :root{
     --teal-900:#0f3d3a; --teal-800:#12524d; --teal-700:#166a63;
@@ -139,7 +139,7 @@ var ICONS = {
 };
 
 /* ============================================================
-   PADRÓN DE EMPLEADOS CON ROLES Y CONDICIÓN ART. 34 / DG
+   PLANTILLA DEL PERSONA Y CONDICIÓN ART. 34 / DG
    ============================================================ */
 var EMPLEADOS = [
   { curp: "GARM850101HDFRZL05", numEmpleado: "10234", nombre: "Maria Elena Garcia Ruiz", puesto: "Jefa de Departamento", nivel: "OA1", area: "Dirección General de Ordenamiento Territorial y Agrario", esArt34: false, esDirectorGeneral: false },
@@ -157,7 +157,7 @@ var CURSOS_2026 = {
 };
 
 var OBLIGATORIOS_2027 = [
-  { nombre: "Ética e Integridad Pública para un Buen Gobierno", horas: 10, modalidad: "A Distancia", institucion: "Escuela de Buen Gobierno" },
+  { nombre: "Obligatorio 1", horas: 10, modalidad: "A Distancia", institucion: "Escuela de Buen Gobierno" },
   { nombre: "Formación en Igualdad Sustantiva y Derechos de las Mujeres", horas: 10, modalidad: "A Distancia", institucion: "Escuela de Buen Gobierno" }
 ];
 
@@ -481,7 +481,7 @@ function renderSolicitud() {
     dncEspecializadaHtml =
       '<div class="card" style="border-left:4px solid var(--teal-800);">' +
         '<div class="card-title">' + ICONS.building + ' DNC Especializada de Área (Facultad de Dirección General)</div>' +
-        '<p class="card-subtitle">Como titular de Unidad Administrativa, puedes registrar un requerimiento grupal prioritario para la capacitación técnica de tu personal adscrito.</p>' +
+        '<p class="card-subtitle">Como DG, puedes registrar un requerimiento grupal prioritario para la capacitación técnica de tu personal adscrito.</p>' +
         '<div class="grid2">' +
           '<div>' +
             '<div class="field-label">Nombre del Curso Especializado Solicitado</div>' +
